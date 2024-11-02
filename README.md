@@ -31,7 +31,7 @@ Tietokantaan lisätään jokaisesta ennusteesta:
 
 Kuka tahansa voi kirjautua palveluun tavallina käyttäjänä. Meteorologi-taso vaatii erillisen hyväksynnän palvelun ylläpitäjältä.
 
-KAYTTÄJÄTASOT
+KÄYTTÄJÄTASOT
 
 1. Palvelussa on ylläpitäjiä, jotka voivat lukita sekä tavallisia käyttäjiä, että meteorologeja pois palvelusta, mikäli nämä tuottavat selvästi virheellistä dataa tai muuten eivät käytä palvelua toivotulla tavalla. Ylläpitäjät voivat myös muuttaa ja poistaa havaintoja sekä ennusteita tietokannasta. Käyttäjät ja meteorologit voivat jättää ylläpitäjälle havainnon tai ennusteen poistopyyntojä.
 
