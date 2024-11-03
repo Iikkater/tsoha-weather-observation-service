@@ -46,4 +46,4 @@ Sääparametrien lisäksi palvelu käyttää tietokantaa käyttäjätietojen sä
 
 Syötetyille sääparametreille (havainnot ja ennusteet) tehdään laaduntarkastusta niin, että selkeästi virheellisen datan pääsyä tietokantaan pyritään estämään.
 - Lämpötilan osalta minimi- ja maksimiarvot
-- Sateen olomuodon, -voimakkuuden ja pilvisyyden on oltava linjassa keskenään (lman pilviä ei voi olla sadetta ja ilman sadetta ei voi olla olomuotoa jne.).
+- Sateen olomuodon, -voimakkuuden ja pilvisyyden on oltava linjassa keskenään (ilman pilviä ei voi olla sadetta ja ilman sadetta ei voi olla olomuotoa jne.).
