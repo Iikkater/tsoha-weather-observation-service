@@ -7,7 +7,7 @@ Palvelussa käyttäjä ("havainnontekijä") voi lisätä säähavaintoja Helsing
 - Lämpötila (celsius)
 - Pilvisyys (selkeää, melko selkeää, puolipilvistä, melko pilvistä, pilvistä) https://www.ilmatieteenlaitos.fi/pilvisyys
 - Sateen voimakkuus (ei sadetta/poutaa, vähäistä sadetta, sadetta, runsasta sadetta) https://www.ilmatieteenlaitos.fi/sade
-- Sateen olomuoto (ei mitään, tihkua, vettä, räntää, lumijyväset, lunta, rakeita) https://www.ilmatieteenlaitos.fi/sateen-olomuodot
+- Sateen olomuoto (pouta, tihkua, vettä, räntää, lumijyväset, lunta, rakeita) https://www.ilmatieteenlaitos.fi/sateen-olomuodot
   
 Pilvisyyden, sateen voimakkuuden ja -olomuodon määrittelyissä käytetään Ilmatieteen laitoksen verkkosivuilta saatavia viitearvoja. Käyttäjä näkee nämä viitearvot sekä ohjeet lisätessään havaintoa palveluun. Parametreja on tarkoituksella vähän, sillä ajatus on, että käyttäjä voi havaita ne joko suoraan silmillä tai yleisillä kotoa löytyvillä mittalaitteilla kuten lämpömittarilla.
 
