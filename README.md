@@ -3,11 +3,11 @@ YLEISKUVAUS
 
 Palvelu, jossa tavalliset ihmiset voivat kirjata matalalla kynnyksellä säähavaintoja sekä verrata niitä meteorologin antamaan ennusteeseen. Palvelun tarkoitus on tuotaa meteorologille dataa ennusteen osuvuudesta sekä tarjota palveun josta voi tarkastella historiatietoja menneistä havainnoista ja ennusteista. Palvelu ei ole tarkoitettu säätilan tai ennusteen reaaliaikaista tarkastekua varten.
 
-Palvelussa käyttäjä ("havainnontekijä") voi lisätä säähavaintoja Helsingin alueen 1km x 1km hilaruudukkoon (Tilastokeskuksen hilaruudukkodata) maksimissaan kerran tunnissa per hilaruudukkopiste. Syötettävät sääparametrit ovat:
+Palvelussa käyttäjä ("havainnontekijä") voi lisätä säähavaintoja Helsingin alueen 1km x 1km hilaruudukkoon (Tilastokeskuksen hilaruudukkodata: https://stat.fi/org/avoindata/paikkatietoaineistot/tilastoruudukko_1km.html) maksimissaan kerran tunnissa per hilaruudukkopiste. Syötettävät sääparametrit ovat:
 - Lämpötila (celsius)
-- Pilvisyys (selkeää, melko selkeää, puolipilvistä, melko pilvistä, pilvistä)
-- Sateen voimakkuus (ei sadetta/poutaa, vähäistä sadetta, sadetta, runsasta sadetta)
-- Sateen olomuoto (ei mitään, tihkua, vettä, räntää, lunta, rakeita)
+- Pilvisyys (selkeää, melko selkeää, puolipilvistä, melko pilvistä, pilvistä) https://www.ilmatieteenlaitos.fi/pilvisyys
+- Sateen voimakkuus (ei sadetta/poutaa, vähäistä sadetta, sadetta, runsasta sadetta) https://www.ilmatieteenlaitos.fi/sade
+- Sateen olomuoto (ei mitään, tihkua, vettä, räntää, lumijyväset, lunta, rakeita) https://www.ilmatieteenlaitos.fi/sateen-olomuodot
   
 Pilvisyyden, sateen voimakkuuden ja -olomuodon määrittelyissä käytetään Ilmatieteen laitoksen verkkosivuilta saatavia viitearvoja. Käyttäjä näkee nämä viitearvot sekä ohjeet lisätessään havaintoa palveluun. Parametreja on tarkoituksella vähän, sillä ajatus on, että käyttäjä voi havaita ne joko suoraan silmillä tai yleisillä kotoa löytyvillä mittalaitteilla kuten lämpömittarilla.
 
@@ -40,7 +40,7 @@ KÄYTTÄJÄTASOT
 
 TEKNISET LISÄTIEDOT
 
-Tietokannan koon hillitsemiseksi ja suorituskyvyn parantamiseksi yli viikon vanhat ennusteet ja havainnot heikennetään 2km x 2km hilaresoluutioon ja 3h aikaresoluutioon. Tämä tehdään yksinkertaisesti käyttämällä harvempaa hilaruudukkoa, jossa sääparametrit lasketaan uusille hilapisteille joko havaintojen ja ennusteiden 6h keskiarvona (lämpötila) tai moodina (pilvisyys, sateen voimakkuus ja -olomuoto).
+Tietokannan koon hillitsemiseksi ja suorituskyvyn parantamiseksi yli viikon vanhat ennusteet ja havainnot heikennetään 5km x 5km hilaresoluutioon ja 3h aikaresoluutioon. Tämä tehdään yksinkertaisesti käyttämällä harvempaa hilaruudukkoa, jossa sääparametrit lasketaan uusille hilapisteille joko havaintojen ja ennusteiden 3h keskiarvona (lämpötila) tai moodina (pilvisyys, sateen voimakkuus ja -olomuoto).
 
 Sääparametrien lisäksi palvelu käyttää tietokantaa käyttäjätietojen säilömiseen sekä erinäisten tilastotietojen säilömiseen.
 
