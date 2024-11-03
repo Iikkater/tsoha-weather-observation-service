@@ -1,48 +1,49 @@
 # Säähavaintopalvelu
 YLEISKUVAUS
 
-Palvelun perusidea on luoda sivusto, jossa tavalliset ihmiset voivat kirjata matalalla kynnyksellä säähavaintoja sekä verrata niitä meteorologin antamaan ennusteeseen. Palvelu ei ole tarkoitettu säätilan tai ennusteen katsomista varten.
+Palvelu, jossa tavalliset ihmiset voivat kirjata matalalla kynnyksellä säähavaintoja sekä verrata niitä meteorologin antamaan ennusteeseen. Palvelun tarkoitus on tuotaa meteorologille dataa ennusteen osuvuudesta sekä tarjota palveun josta voi tarkastella historiatietoja menneistä havainnoista ja ennusteista. Palvelu ei ole tarkoitettu säätilan tai ennusteen reaaliaikaista tarkastekua varten.
 
-Palvelussa käyttäjä voi lisätä säähavaintoja Helsingin alueen 1km x 1km hilaruudukkoon (Tilastokeskuksen hilaruudukkodata) maksimissaan kerran tunnissa. Syötettävät sääparametrit ovat:
+Palvelussa käyttäjä ("havainnontekijä") voi lisätä säähavaintoja Helsingin alueen 1km x 1km hilaruudukkoon (Tilastokeskuksen hilaruudukkodata) maksimissaan kerran tunnissa per hilaruudukkopiste. Syötettävät sääparametrit ovat:
 - Lämpötila (celsius)
 - Pilvisyys (selkeää, melko selkeää, puolipilvistä, melko pilvistä, pilvistä)
 - Sateen voimakkuus (ei sadetta/poutaa, vähäistä sadetta, sadetta, runsasta sadetta)
-- Sateen olomuoto (tihkua, vettä, räntää, lunta, rakeita)
+- Sateen olomuoto (ei mitään, tihkua, vettä, räntää, lunta, rakeita)
   
-Pilvisyyden, sateen voimakkuuden ja -olomuodon määrittelyissä käytetään Ilmatieteen laitoksen verkkosivuilta saatavia viitearvoja. Käyttäjä näkee nämä viitearvot sekä ohjeet lisätessään havaintoa palveluun. Parametreja on tarkoituksella vähän, sillä ajatus on, että ne voidaan havaita joko suoraan silmillä tai yleisillä kotoa löytyvillä mittalaitteilla kuten lämpömittarilla.
+Pilvisyyden, sateen voimakkuuden ja -olomuodon määrittelyissä käytetään Ilmatieteen laitoksen verkkosivuilta saatavia viitearvoja. Käyttäjä näkee nämä viitearvot sekä ohjeet lisätessään havaintoa palveluun. Parametreja on tarkoituksella vähän, sillä ajatus on, että käyttäjä voi havaita ne joko suoraan silmillä tai yleisillä kotoa löytyvillä mittalaitteilla kuten lämpömittarilla.
 
-Käyttäjä voi havaintoa lisätessään syöttää manuaalisesti havaintopaikan koordinaatit (lat ja lon) tai käyttää palvelun HTML Geolocation APIa oman sijainnin syöttämiseen (vaatii käyttäjän hyväksynnän). Palvelu kirjaa havainnon koordinaattien mukaan lähimpään hilapisteeseen ruudukossa.
+Käyttäjä voi havaintoa lisätessään syöttää manuaalisesti havaintopaikan koordinaatit (lat ja lon) tai käyttää palvelun HTML Geolocation APIa oman sijainnin syöttämiseen (vaatii käyttäjän hyväksynnän). Palvelu kirjaa havainnon koordinaattien perusteella lähimpään hilapisteeseen.
 
 Tietokantaan kirjataan jokaisesta havainnosta:
-- Sääparametrit
-- Kellonaika
-- Sijainti hilaruudukossa
+- Havaitut sääparametrit
+- Havainnon päivämäärä ja kellonaika
+- Havainnon sijainti hilaruudukossa
 - Havainnontekijä
 
-
-Lisäksi palvelussa on "meteorologi"-käyttäjiä, jotka voivat ladata json-muotoisen, pisimmillään 24h ennusteen 1 tunnin aikaresoluutiolla yllä mainituille parametreille hilaruudukkoon. Palvelussa voi vertailla meteorologin antaman ennusteen ja käyttäjien kirjaamien havaintojen eroja jälkikäteen.
+Lisäksi palvelussa on "meteorologi"-käyttäjiä, jotka voivat ladata json-muotoisen, pisimmillään 24h ennusteen 1 tunnin aikaresoluutiolla yllä mainituille sääparametreille hilaruudukkoon. Palvelussa meteorologi voi vertailla tekemänsä ennusteen ja käyttäjien kirjaamien havaintojen eroja jälkikäteen. Lisäksi meteorologi voi jälkikäteen vertailla tekemäänsä ennustetta muiden meteorologien ennusteeseen.
 
 Tietokantaan lisätään jokaisesta ennusteesta:
 - Ennustetut sääparametrit
-- Ennustetunti
-- Ennustesijainti hilaruudukossa
-- Analyysiaika (hetki jolloin ennuste on tuotettu)
-- Meteorologi
+- Ennustetunnit
+- Ennusteen sijainnit hilaruudukossa
+- Analyysiaika (päivämäärä ja kellonaika jolloin ennuste on tuotettu)
+- Ennusteen tehnyt meteorologi
 
-Kuka tahansa voi kirjautua palveluun tavallina käyttäjänä. Meteorologi-taso vaatii erillisen hyväksynnän palvelun ylläpitäjältä.
+Kuka tahansa voi luoda tunnuksen ja kirjautua palveluun tavallisena käyttäjänä. Meteorologi-taso vaatii erillisen hyväksynnän palvelun ylläpitäjältä.
 
 KÄYTTÄJÄTASOT
 
-1. Palvelussa on ylläpitäjiä, jotka voivat lukita sekä tavallisia käyttäjiä, että meteorologeja pois palvelusta, mikäli nämä tuottavat selvästi virheellistä dataa tai muuten eivät käytä palvelua toivotulla tavalla. Ylläpitäjät voivat myös muuttaa ja poistaa havaintoja sekä ennusteita tietokannasta. Käyttäjät ja meteorologit voivat jättää ylläpitäjälle havainnon tai ennusteen poistopyyntojä.
+1. Palvelussa on ylläpitäjiä, jotka voivat lukita sekä tavallisia käyttäjiä, että meteorologeja pois palvelusta, mikäli nämä tuottavat selvästi virheellistä dataa tai muuten eivät käytä palvelua toivotulla tavalla. Ylläpitäjä voi muuttaa tavallisen käyttäjän meteorologi-tasolle perustellusta pyynnöstä. Ylläpitäjät voivat myös muuttaa ja poistaa havaintoja sekä ennusteita tietokannasta. Käyttäjät ja meteorologit voivat jättää ylläpitäjälle havainnon tai ennusteen poistopyyntojä.
 
-2. Tavalliset käyttäjät ("havainnontekijät") voivat tarkastella muiden havaintoja, mutta eivät voi poistaa antamiaan havaintoja. Kullekin tunnille annettua havaintoa voi kuitenkin muokata kyseisen tunnin aikana (esim. kello 12 SA havaintoa voi päivittää 12:59 asti). Lisäksi käyttäjät voivat tarkastella menneitä meteorologien ennusteita ja verrata niitä annettuihin havaintoihin. Käyttäjä voi myös antaa joka tunti arvosanan 1-5 meteorologin ennusteen osuvuudelle edelliselle tunnille.
+2. Tavalliset käyttäjät ("havainnontekijät") voivat tarkastella muiden havaintoja, mutta eivät voi poistaa antamiaan havaintoja. Kullekin tunnille ja hilapisteelle annettua havaintoa voi kuitenkin muokata kyseisen tunnin aikana (esim. kello 12 SA havaintoa voi päivittää 12:59 SA asti). Lisäksi käyttäjät voivat tarkastella menneitä meteorologien ennusteita ja verrata niitä annettuihin havaintoihin. Käyttäjä voi myös antaa joka tunti arvosanan 1-5 meteorologin ennusteen osuvuudelle edelliselle tunnille.
 
-Meteorologit voivat tarkastella menneitä ennusteita, mutta eivät voi poistaa niitä. Meteorologit voivat myös tarkastella menneitä havaintoja ja verrata niitä ennusteisiin.
+3. Meteorologit voivat käyttää palveua kuten tavalliset käyttäjät. Lisäksi he voivat listätä palveluun ennusteita maksimissaan yksi ennuste per tunti per piste hilaruudukossa. Meteorologit voivat tarkastella omia ja muiden tekemiä menneitä ennusteita, mutta eivät voi poistaa niitä. Meteorologit voivat myös tarkastella menneitä havaintoja ja verrata niitä saman ajanhetken ennusteisiin.
 
 TEKNISET LISÄTIEDOT
 
-Tietokannan koon hillitsemiseksi ja suorituskyvyn parantamiseksi yli viikon vanhat ennusteet ja havainnot heikennetään 10km x 10km hilaresoluutioon ja 6h aikaresoluutioon. Tämä tehdään yksinkertaisesti käyttämällä harvempaa hilaruudukkoa, jossa sääparametrit lasketaan uusille hilapisteille joko havaintojen ja ennusteiden 6h keskiarvona (lämpötila) tai moodina (pilvisyys, sateen voimakkuus ja -olomuoto).
+Tietokannan koon hillitsemiseksi ja suorituskyvyn parantamiseksi yli viikon vanhat ennusteet ja havainnot heikennetään 2km x 2km hilaresoluutioon ja 3h aikaresoluutioon. Tämä tehdään yksinkertaisesti käyttämällä harvempaa hilaruudukkoa, jossa sääparametrit lasketaan uusille hilapisteille joko havaintojen ja ennusteiden 6h keskiarvona (lämpötila) tai moodina (pilvisyys, sateen voimakkuus ja -olomuoto).
 
 Sääparametrien lisäksi palvelu käyttää tietokantaa käyttäjätietojen säilömiseen sekä erinäisten tilastotietojen säilömiseen.
 
-Tilastoja voidaan mahdollisesti esittää palvelussa myös graafisesti käyttäen R-ohjelmistoa. Havainto- ja ennustedataa voi mahdollisesti ladata palvelusta json formaatissa.
+Syötetyille sääparametreille (havainnot ja ennusteet) tehdään laaduntarkastusta niin, että selkeästi virheellisen datan pääsyä tietokantaan pyritään estämään.
+- Lämpötilan osalta minimi- ja maksimiarvot
+- Sateen olomuodon, -voimakkuuden ja pilvisyyden on oltava linjassa keskenään (lman pilviä ei voi olla sadetta ja ilman sadetta ei voi olla olomuotoa jne.).
