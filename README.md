@@ -47,3 +47,27 @@ Sääparametrien lisäksi palvelu käyttää tietokantaa käyttäjätietojen sä
 Syötetyille sääparametreille (havainnot ja ennusteet) tehdään laaduntarkastusta niin, että selkeästi virheellisen datan pääsyä tietokantaan pyritään estämään.
 - Lämpötilan osalta minimi- ja maksimiarvot
 - Sateen olomuodon, -voimakkuuden ja pilvisyyden on oltava linjassa keskenään (ilman pilviä ei voi olla sadetta ja ilman sadetta ei voi olla olomuotoa jne.).
+
+VÄLIPALAUTUS 2:
+- Sovelluksen pohjatyöt on tehty kuten luotu eri sivujen html -tiedostoja joita hallinnoidaan wsgi.py ohjelmalla. Lisäksi on luotu styles.css -tyyli ja muotoilutiedosto
+- Sovellukselle on luotu kirjautumistoiminnot, sekä käyttäjätilin luomisen toiminnot
+  - Käyttäjien tiedot säilötään ja haetaan tietokannan tsoha_wos_db taulusta 'users'
+  - Lisäksi käyttäjatasolle admin on lisätty oikeus muutta muiden käyttäjien tasoja (basic, meteorologist, admin ja locked).
+
+- Varsinaiset havaintoihin liittyvät toiminnallisuudet ovat vasta suunnitteluasteella
+  - Tietokantataulut hilapisteille, havainnoille sekä ennusteille ja erinäisille hiestoriatiedoille ja tilastoille
+ 
+Sovellusta voi testata kloonaamalla repositorion, asentamalla python-riippuvuudet tiedostosta requirements.txt ja asentamalla tietokannan skeeman tiedostosta schema.sql. Tietokanta tarvitsee käyttäjän wos_app. Lisäksi kansioon app/ tarvitaan .env tiedosto, jossa on määritelty:
+  - DB_NAME=tsoha_wos_db
+  - DB_USER=wos_app
+  - DB_PASSWORD="salasana_tahan"
+  - DB_HOST=localhost
+  - DB_PORT=5432
+  - DATABASE_URL=postgresql:///tsoha_wos_db
+  - SECRET_KEY="salainen_avain_tahan"
+
+Sovellusta voi testata seuraavasti:
+  - cd app/
+  - source venv/bin/activate
+  - flask run
+  - tämän jälkeen sovellus näkyy osoitteessa: http://127.0.0.1:5000/
