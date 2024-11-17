@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ session.username }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='autofill.js') }}"></script>
+</head>
+<body>
+    <p>Olet kirjautunut sisään nimellä {{ session.username }} ({{ session.tier }})</p>
+
+    {% if session.tier == 'admin' %}
+    <h2>Muuta käyttäjätasoja</h2>
+    {% with messages = get_flashed_messages(category_filter=["change_tier"]) %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form action="/change_tier" method="post">
+        <label for="username">Käyttäjätunnus:</label>
+        <div style="position: relative; width: 15em;">
+            <input type="text" id="username" name="username" oninput="fetchUsers(this.value)" required style="width: 100%;">
+            <div id="suggestions" class="suggestions"></div>
+        </div><br><br>
+        <label for="tier">Taso:</label>
+        <select id="tier" name="tier" required>
+            <option value="basic">Basic</option>
+            <option value="meteorologist">Meteotologi</option>
+            <option value="admin">Admin</option>
+            <option value="locked">Lukittu</option>
+        </select><br><br>
+        <input type="submit" value="Muuta käyttäjätasoa">
+    </form>
+    {% endif %}
+    <a href="/logout">Kirjaudu ulos</a>
+</body>
+</html>

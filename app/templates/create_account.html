@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Luo käyttäjätunnus</h2>
+    <form action="/create_account" method="post">
+        <label for="firstname">Etunimi:</label>
+        <input type="text" id="firstname" name="firstname" required><br><br>
+        <label for="surname">Sukunimi:</label>
+        <input type="text" id="surname" name="surname" required><br><br>
+        <label for="email">Sähköposti:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        <label for="username">Käyttäjätunnus:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="password">Salasana:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <label for="retype_password">Salasana uudelleen:</label>
+        <input type="password" id="retype_password" name="retype_password" required><br><br>
+        <input type="submit" value="Luo käyttäjätunnus">
+    </form>
+</body>
+</html>
