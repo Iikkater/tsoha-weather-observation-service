@@ -1,125 +1,27 @@
---
--- PostgreSQL database dump
---
+-- Set role to wos_app
+SET ROLE wos_app;
 
--- Dumped from database version 16.5 (Ubuntu 16.5-1.pgdg22.04+1)
--- Dumped by pg_dump version 16.5 (Ubuntu 16.5-1.pgdg22.04+1)
+-- Drop existing tables if they exist
+DROP TABLE IF EXISTS user_credentials CASCADE;
+DROP TABLE IF EXISTS user_details CASCADE;
 
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
-
-SET default_tablespace = '';
-
-SET default_table_access_method = heap;
-
---
--- Name: users; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.users (
-    id integer NOT NULL,
-    username character varying(50) NOT NULL,
-    password character varying(200) NOT NULL,
-    tier character varying(20) DEFAULT 'basic'::character varying NOT NULL,
-    firstname character varying(50),
-    surname character varying(50),
-    email character varying(100)
+-- Create user_credentials table
+CREATE TABLE user_credentials (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(200) NOT NULL,
+    tier VARCHAR(20) DEFAULT 'basic' NOT NULL
 );
 
+-- Create user_details table
+CREATE TABLE user_details (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES user_credentials(id) ON DELETE CASCADE,
+    firstname VARCHAR(50) NOT NULL,
+    surname VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL
+);
 
-ALTER TABLE public.users OWNER TO postgres;
-
---
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.users_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public.users_id_seq OWNER TO postgres;
-
---
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
-
-
---
--- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
-
-
---
--- Name: users unique_email; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT unique_email UNIQUE (email);
-
-
---
--- Name: users unique_username; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT unique_username UNIQUE (username);
-
-
---
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: users users_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_username_key UNIQUE (username);
-
-
---
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: pg_database_owner
---
-
-GRANT USAGE ON SCHEMA public TO wos_app;
-
-
---
--- Name: TABLE users; Type: ACL; Schema: public; Owner: postgres
---
-
-GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.users TO wos_app;
-
-
---
--- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: public; Owner: postgres
---
-
-ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT SELECT,INSERT,DELETE,UPDATE ON TABLES TO wos_app;
-
-
---
--- PostgreSQL database dump complete
---
-
+-- Create indexes
+CREATE INDEX idx_user_credentials_username ON user_credentials(username);
+CREATE INDEX idx_user_details_email ON user_details(email);

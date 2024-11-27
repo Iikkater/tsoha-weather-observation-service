@@ -1,5 +1,5 @@
 # Säähavaintopalvelu
-YLEISKUVAUS
+## YLEISKUVAUS
 
 Palvelu, jossa tavalliset ihmiset voivat kirjata matalalla kynnyksellä säähavaintoja sekä verrata niitä meteorologin antamaan ennusteeseen. Palvelun tarkoitus on tuotaa meteorologille dataa ennusteen osuvuudesta sekä tarjota palveun josta voi tarkastella historiatietoja menneistä havainnoista ja ennusteista. Palvelu ei ole tarkoitettu säätilan tai ennusteen reaaliaikaista tarkastekua varten.
 
@@ -30,7 +30,7 @@ Tietokantaan lisätään jokaisesta ennusteesta:
 
 Kuka tahansa voi luoda tunnuksen ja kirjautua palveluun tavallisena käyttäjänä. Meteorologi-taso vaatii erillisen hyväksynnän palvelun ylläpitäjältä.
 
-KÄYTTÄJÄTASOT
+### KÄYTTÄJÄTASOT
 
 1. Palvelussa on ylläpitäjiä, jotka voivat lukita sekä tavallisia käyttäjiä, että meteorologeja pois palvelusta, mikäli nämä tuottavat selvästi virheellistä dataa tai muuten eivät käytä palvelua toivotulla tavalla. Ylläpitäjä voi muuttaa tavallisen käyttäjän meteorologi-tasolle perustellusta pyynnöstä. Ylläpitäjät voivat myös muuttaa ja poistaa havaintoja sekä ennusteita tietokannasta. Käyttäjät ja meteorologit voivat jättää ylläpitäjälle havainnon tai ennusteen poistopyyntojä.
 
@@ -38,7 +38,7 @@ KÄYTTÄJÄTASOT
 
 3. Meteorologit voivat käyttää palveua kuten tavalliset käyttäjät. Lisäksi he voivat listätä palveluun ennusteita maksimissaan yksi ennuste per tunti per piste hilaruudukossa. Meteorologit voivat tarkastella omia ja muiden tekemiä menneitä ennusteita, mutta eivät voi poistaa niitä. Meteorologit voivat myös tarkastella menneitä havaintoja ja verrata niitä saman ajanhetken ennusteisiin.
 
-TEKNISET LISÄTIEDOT
+### TEKNISET LISÄTIEDOT
 
 Tietokannan koon hillitsemiseksi ja suorituskyvyn parantamiseksi yli viikon vanhat ennusteet ja havainnot heikennetään 5km x 5km hilaresoluutioon ja 3h aikaresoluutioon. Tämä tehdään yksinkertaisesti käyttämällä harvempaa hilaruudukkoa, jossa sääparametrit lasketaan uusille hilapisteille joko havaintojen ja ennusteiden 3h keskiarvona (lämpötila) tai moodina (pilvisyys, sateen voimakkuus ja -olomuoto).
 
@@ -48,7 +48,7 @@ Syötetyille sääparametreille (havainnot ja ennusteet) tehdään laaduntarkast
 - Lämpötilan osalta minimi- ja maksimiarvot
 - Sateen olomuodon, -voimakkuuden ja pilvisyyden on oltava linjassa keskenään (ilman pilviä ei voi olla sadetta ja ilman sadetta ei voi olla olomuotoa jne.).
 
-VÄLIPALAUTUS 2:
+## VÄLIPALAUTUS 2
 - Sovelluksen pohjatyöt on tehty kuten luotu eri sivujen html -tiedostoja joita hallinnoidaan wsgi.py ohjelmalla. Lisäksi on luotu styles.css -tyyli ja muotoilutiedosto
 - Sovellukselle on luotu kirjautumistoiminnot, sekä käyttäjätilin luomisen toiminnot
   - Käyttäjien tiedot säilötään ja haetaan tietokannan tsoha_wos_db taulusta 'users'
@@ -56,18 +56,111 @@ VÄLIPALAUTUS 2:
 
 - Varsinaiset havaintoihin liittyvät toiminnallisuudet ovat vasta suunnitteluasteella
   - Tietokantataulut hilapisteille, havainnoille sekä ennusteille ja erinäisille hiestoriatiedoille ja tilastoille
- 
-Sovellusta voi testata kloonaamalla repositorion, asentamalla python-riippuvuudet tiedostosta requirements.txt ja asentamalla tietokannan skeeman tiedostosta schema.sql. Tietokanta tarvitsee käyttäjän wos_app. Lisäksi kansioon app/ tarvitaan .env tiedosto, jossa on määritelty:
-  - DB_NAME=tsoha_wos_db
-  - DB_USER=wos_app
-  - DB_PASSWORD="salasana_tahan"
-  - DB_HOST=localhost
-  - DB_PORT=5432
-  - DATABASE_URL=postgresql:///tsoha_wos_db
-  - SECRET_KEY="salainen_avain_tahan"
 
-Sovellusta voi testata seuraavasti:
-  - cd app/
-  - source venv/bin/activate
-  - flask run
-  - tämän jälkeen sovellus näkyy osoitteessa: http://127.0.0.1:5000/
+## TESTAUS
+
+1. Kloonaa repositorio:
+
+    ```sh
+    git clone https://github.com/Iikkater/tsoha-weather-observation-service.git
+    cd tsoha-weather-observation-service
+    ```
+
+2. Luo sovelluksen käyttämä tietokantakäyttäjä ja tietokanta:
+    - Avaa PostgreSQL-komentorivi:
+    
+        ```sh
+        psql
+        ```
+    - Luo uusi käyttäjä `wos_app`:
+
+        ```sql
+        CREATE USER wos_app WITH PASSWORD 'salasana_tahan';
+        ```
+    - Luo uusi tietokanta `tsoha_wos_db` ja aseta sen omistajaksi `wos_app`:
+
+        ```sql
+        CREATE DATABASE tsoha_wos_db OWNER wos_app;
+        ```
+    - Poistu PostgreSQL-komentoriviltä:
+
+        ```sql
+        \q
+        ```
+
+3. Määritä ympäristömuuttujat .env -tiedostoon sovelluksen juuressa:
+
+    ```env
+    DB_NAME=tsoha_wos_db
+    DB_USER=wos_app
+    DB_PASSWORD=<salasana_tahan>
+    DB_HOST=localhost
+    DB_PORT=5432
+    SECRET_KEY=<salainen_avain_tahan>
+    ```
+
+4. Alusta tietokanta skeemalla:
+
+    ```sh
+    psql -d tsoha_wos_db -f schema.sql
+    ```
+
+5. Luo itsellesi manuaalisesti admin-tason käyttäjä tietokantaan helpottamaan palvelun testaamista:
+    - Luo ensin itsellesi kryptattu salasana:
+        
+        ```sh
+        cd app/
+        chmod +x crypt.py
+        ./crypt.py 'salasana_tahan'
+        ```
+
+        Kopioi tämä kryptattu salasana ('pbkdf2:sha256:...').
+
+    - Lisää admin-tason käyttäjä tietokantaan kryptatulla salasanalla (voit halutessasi muuttaa myös admin-käyttäjän muita tietoja sql-komennossa):
+        
+        Avaa PostgreSQL-komentorivi:
+
+        ```sh
+        psql -d tsoha_wos_db
+        ```
+
+        ```sql
+        INSERT INTO user_credentials (username, password, tier) VALUES ('admin', '<kryptattu_salasana>', 'admin');
+        INSERT INTO user_details (user_id, firstname, surname, email) VALUES ((SELECT id FROM user_credentials WHERE username = 'admin'), 'Admin', 'User', 'admin@example.com');
+        ```
+
+        Varmista lisäys:
+        
+        ```sql
+        SELECT * FROM user_credentials;
+        SELECT * FROM user_details;
+        ```
+
+    - Poistu PostgreSQL-komentoriviltä:
+
+        ```sql
+        \q
+        ```
+
+5. Luo ja aktivoi virtuaaliympäristö:
+
+    ```sh
+    cd ..
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+
+6. Asenna riippuvuudet:
+
+    ```sh
+    pip install -r requirements.txt
+    ```
+
+7. Siirry hakemistoon /app ja käynnistä sovellus:
+
+    ```sh
+    cd app/
+    flask run
+    ```
+
+8. Sovellus on nyt testattavissa osoitteessa: http://127.0.0.1:5000/
