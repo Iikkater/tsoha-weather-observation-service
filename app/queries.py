@@ -57,19 +57,50 @@ class Queries:
         return [{'username': row.username} for row in result]
     
     def add_observation(self, user_id, postal_area_id, temperature, cloudiness, precipitation_amount, precipitation_type, observation_time):
-        sql = """
-        INSERT INTO observations (user_id, postal_area_id, temperature, cloudiness, precipitation_amount, precipitation_type, observation_time)
-        VALUES (:user_id, :postal_area_id, :temperature, :cloudiness, :precipitation_amount, :precipitation_type, :observation_time)
+        sql_check = """
+        SELECT id FROM observations
+        WHERE user_id = :user_id
+        AND postal_area_id = :postal_area_id
+        AND date_trunc('hour', observation_time) = date_trunc('hour', :observation_time)
         """
-        self.db.conn.session.execute(text(sql), {
+        result = self.db.conn.session.execute(text(sql_check), {
             'user_id': user_id,
             'postal_area_id': postal_area_id,
-            'temperature': temperature,
-            'cloudiness': cloudiness,
-            'precipitation_amount': precipitation_amount,
-            'precipitation_type': precipitation_type,
             'observation_time': observation_time
-        })
+        }).fetchone()
+
+        if result:
+            sql_update = """
+            UPDATE observations
+            SET temperature = :temperature,
+                cloudiness = :cloudiness,
+                precipitation_amount = :precipitation_amount,
+                precipitation_type = :precipitation_type,
+                observation_time = :observation_time
+            WHERE id = :id
+            """
+            self.db.conn.session.execute(text(sql_update), {
+                'temperature': temperature,
+                'cloudiness': cloudiness,
+                'precipitation_amount': precipitation_amount,
+                'precipitation_type': precipitation_type,
+                'observation_time': observation_time,
+                'id': result.id
+            })
+        else:
+            sql_insert = """
+            INSERT INTO observations (user_id, postal_area_id, temperature, cloudiness, precipitation_amount, precipitation_type, observation_time)
+            VALUES (:user_id, :postal_area_id, :temperature, :cloudiness, :precipitation_amount, :precipitation_type, :observation_time)
+            """
+            self.db.conn.session.execute(text(sql_insert), {
+                'user_id': user_id,
+                'postal_area_id': postal_area_id,
+                'temperature': temperature,
+                'cloudiness': cloudiness,
+                'precipitation_amount': precipitation_amount,
+                'precipitation_type': precipitation_type,
+                'observation_time': observation_time
+            })
         self.db.conn.session.commit()
 
     def get_parameters(self):

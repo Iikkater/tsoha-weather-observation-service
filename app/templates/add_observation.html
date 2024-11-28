@@ -7,6 +7,15 @@
 </head>
 <body>
     <h1>Lisää havainto</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     <form method="POST" action="{{ url_for('add_observation') }}">
         <label for="postal_area_id">Postinumeroalue:</label>
         <select name="postal_area_id" id="postal_area_id">
@@ -19,13 +28,13 @@
         <input type="number" step="0.1" name="temperature" id="temperature">
         <br>
         <label for="cloudiness">Pilvisyys (0-4):</label>
-        <input type="number" name="cloudiness" id="cloudiness" min="0" max="4">
+        <input type="number" name="cloudiness" id="cloudiness" min="0" max="4" value="0" required>
         <br>
         <label for="precipitation_amount">Sateen määrä (0-3):</label>
-        <input type="number" name="precipitation_amount" id="precipitation_amount" min="0" max="3">
+        <input type="number" name="precipitation_amount" id="precipitation_amount" min="0" max="3" value="0" required>
         <br>
         <label for="precipitation_type">Sateen tyyppi (0-6):</label>
-        <input type="number" name="precipitation_type" id="precipitation_type" min="0" max="6">
+        <input type="number" name="precipitation_type" id="precipitation_type" min="0" max="6" value="0" required>
         <br>
         <button type="submit">Lisää havainto</button>
     </form>

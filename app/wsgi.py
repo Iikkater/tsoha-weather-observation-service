@@ -6,6 +6,7 @@ from crypt import verify_password
 from db import Database
 from queries import Queries
 from import_postal_areas import import_postal_areas
+from check_data import check_observation_data
 
 # Load environment variables from .env file
 load_dotenv()
@@ -127,6 +128,13 @@ def add_observation():
         precipitation_amount = request.form.get("precipitation_amount", type=int)
         precipitation_type = request.form.get("precipitation_type", type=int)
         observation_time = datetime.now(timezone.utc)
+
+        # Tarkista datan oikeellisuus
+        errors = check_observation_data(temperature, cloudiness, precipitation_amount, precipitation_type)
+        if errors:
+            for error in errors:
+                flash(error)
+            return redirect(url_for("add_observation"))
 
         queries.add_observation(user_id, postal_area_id, temperature, cloudiness, precipitation_amount, precipitation_type, observation_time)
         flash("Havainto lisätty onnistuneesti.")
