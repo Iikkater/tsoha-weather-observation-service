@@ -2,9 +2,13 @@
 SET ROLE wos_app;
 
 -- Drop existing tables if they exist
-DROP TABLE IF EXISTS user_credentials CASCADE;
-DROP TABLE IF EXISTS user_details CASCADE;
+-- DROP TABLE IF EXISTS user_credentials CASCADE;
+-- DROP TABLE IF EXISTS user_details CASCADE;
 DROP TABLE IF EXISTS parameters CASCADE;
+DROP TABLE IF EXISTS regions CASCADE;
+DROP TABLE IF EXISTS municipalities CASCADE;
+DROP TABLE IF EXISTS postal_areas CASCADE;
+DROP TABLE IF EXISTS observations CASCADE;
 
 -- Create user_credentials table
 CREATE TABLE user_credentials (
@@ -38,6 +42,45 @@ INSERT INTO parameters (id, code, unit, datatype, description) VALUES
 (3, 'PRA', 'INT', 'integer', 'Sateen intensiteetti (pouta[0], vähäistä sadetta[1], sadetta[2], runsasta sadetta[3])'),
 (4, 'PRST', 'INT', 'integer', 'Sateen olomuoto (pouta[0], tihkua[1], vettä[2], räntää[3], lumijyväset[4], lunta[5], rakeita[6])');
 
+-- Create regions table
+CREATE TABLE regions (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code VARCHAR(10) UNIQUE NOT NULL,
+    name VARCHAR(100) NOT NULL
+);
+
+-- Create municipalities table
+CREATE TABLE municipalities (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code INTEGER UNIQUE NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    region_id INTEGER REFERENCES regions(id) ON DELETE CASCADE
+);
+
+-- Create postal_areas table
+CREATE TABLE postal_areas (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    postal_code VARCHAR(10) UNIQUE NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    municipality_code INTEGER REFERENCES municipalities(code) ON DELETE CASCADE
+);
+
+-- Create observations table
+CREATE TABLE observations (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES user_credentials(id) ON DELETE CASCADE,
+    postal_area_id INTEGER REFERENCES postal_areas(id) ON DELETE CASCADE,
+    temperature REAL,
+    cloudiness INTEGER,
+    precipitation_amount INTEGER,
+    precipitation_type INTEGER,
+    observation_time TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
 -- Create indexes
 CREATE INDEX idx_user_credentials_username ON user_credentials(username);
 CREATE INDEX idx_user_details_email ON user_details(email);
+CREATE INDEX idx_postal_areas_postal_code ON postal_areas(postal_code);
+CREATE INDEX idx_observations_user_id ON observations(user_id);
+CREATE INDEX idx_observations_postal_area_id ON observations(postal_area_id);
+CREATE INDEX idx_observations_observation_time ON observations(observation_time);

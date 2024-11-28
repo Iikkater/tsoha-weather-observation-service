@@ -36,6 +36,10 @@
         <input type="submit" value="Muuta käyttäjätasoa">
     </form>
     {% endif %}
-    <a href="/logout">Kirjaudu ulos</a>
+
+    <h2>Lisää havainto</h2>
+    <a href="{{ url_for('add_observation') }}" class="button button-blue">Lisää havainto</a>
+
+    <a href="{{ url_for('logout') }}" class="button button-red">Kirjaudu ulos</a>
 </body>
 </html>

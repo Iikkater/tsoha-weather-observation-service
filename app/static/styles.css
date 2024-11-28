@@ -62,7 +62,7 @@ label {
     background-color: #f0f0f0;
 }
 
-.button {
+.button-blue {
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
@@ -77,6 +77,44 @@ label {
     margin: 5px;
 }
 
-.button:hover {
+.button-blue:hover {
     background-color: #0056b3;
+}
+
+.button-red {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #dc3545;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.button-red:hover {
+    background-color: #c82333;
+}
+
+.button-green {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #087522;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.button-green:hover {
+    background-color: #0a6e29;
 }

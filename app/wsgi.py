@@ -1,9 +1,11 @@
 import os
+from datetime import datetime, timezone
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from dotenv import load_dotenv
 from crypt import verify_password
 from db import Database
 from queries import Queries
+from import_postal_areas import import_postal_areas
 
 # Load environment variables from .env file
 load_dotenv()
@@ -14,6 +16,11 @@ app.secret_key = os.getenv("SECRET_KEY")
 db = Database()
 db.connect(app)
 queries = Queries(db)
+
+# Import postal areas data
+csv_file_path = os.path.join('data/locations', 'Uusimaa_postal_areas.csv')
+if not import_postal_areas(csv_file_path):
+    print("Error: Failed to import postal areas data.")
 
 @app.route("/")
 def index():
@@ -30,6 +37,7 @@ def login():
         if found_user and found_user['tier'] != 'locked' and verify_password(password, found_user['password']):
             session["username"] = found_user['username']
             session["tier"] = found_user['tier']
+            session["user_id"] = found_user['id']
             return redirect(url_for("user"))
         
         if found_user and found_user['tier'] == 'locked':
@@ -77,6 +85,7 @@ def user():
 def logout():
     session.pop("username", None)
     session.pop("tier", None)
+    session.pop("user_id", None)
     return redirect(url_for("index"))
 
 @app.route("/change_tier", methods=["POST"])
@@ -107,6 +116,25 @@ def search_users():
     users = queries.search_users(query)
     user_list = [{"username": user['username']} for user in users]
     return jsonify(user_list)
+
+@app.route("/add_observation", methods=["GET", "POST"])
+def add_observation():
+    if request.method == "POST":
+        user_id = session.get("user_id")
+        postal_area_id = request.form["postal_area_id"]
+        temperature = request.form.get("temperature", type=float)
+        cloudiness = request.form.get("cloudiness", type=int)
+        precipitation_amount = request.form.get("precipitation_amount", type=int)
+        precipitation_type = request.form.get("precipitation_type", type=int)
+        observation_time = datetime.now(timezone.utc)
+
+        queries.add_observation(user_id, postal_area_id, temperature, cloudiness, precipitation_amount, precipitation_type, observation_time)
+        flash("Havainto lisätty onnistuneesti.")
+        return redirect(url_for("add_observation"))
+
+    parameters = queries.get_parameters()
+    postal_areas = queries.get_postal_areas()
+    return render_template("add_observation.html", parameters=parameters, postal_areas=postal_areas)
 
 if __name__ == '__main__':
     app.run(debug=True)

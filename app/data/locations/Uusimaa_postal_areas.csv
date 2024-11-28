@@ -1,0 +1,390 @@
+Postinumeroalue,Postinumeroalueen nimi,Kunta,Kunnan nimi,Kuntaryhmä,Maakunta,Maakunnan nimi
+00100,Helsinki keskusta - Etu-Töölö,091,Helsinki,1,01,Uusimaa
+00120,Punavuori - Bulevardi,091,Helsinki,1,01,Uusimaa
+00130,Kaartinkaupunki,091,Helsinki,1,01,Uusimaa
+00140,Kaivopuisto - Ullanlinna,091,Helsinki,1,01,Uusimaa
+00150,Punavuori - Eira - Hernesaari,091,Helsinki,1,01,Uusimaa
+00160,Katajanokka,091,Helsinki,1,01,Uusimaa
+00170,Kruununhaka,091,Helsinki,1,01,Uusimaa
+00180,Kamppi - Ruoholahti,091,Helsinki,1,01,Uusimaa
+00190,Suomenlinna,091,Helsinki,1,01,Uusimaa
+00200,Pohjois-Lauttasaari,091,Helsinki,1,01,Uusimaa
+00210,Vattuniemi,091,Helsinki,1,01,Uusimaa
+00220,Jätkäsaari,091,Helsinki,1,01,Uusimaa
+00230,Helsinki postikeskus,091,Helsinki,1,01,Uusimaa
+00240,Länsi-Pasila,091,Helsinki,1,01,Uusimaa
+00250,Taka-Töölö,091,Helsinki,1,01,Uusimaa
+00260,Keski-Töölö,091,Helsinki,1,01,Uusimaa
+00270,Pohjois-Meilahti,091,Helsinki,1,01,Uusimaa
+00280,Ruskeasuo,091,Helsinki,1,01,Uusimaa
+00290,Meilahden sairaala-alue,091,Helsinki,1,01,Uusimaa
+00300,Pikku Huopalahti,091,Helsinki,1,01,Uusimaa
+00310,Kivihaka,091,Helsinki,1,01,Uusimaa
+00320,Etelä-Haaga,091,Helsinki,1,01,Uusimaa
+00330,Munkkiniemi,091,Helsinki,1,01,Uusimaa
+00340,Kuusisaari - Lehtisaari,091,Helsinki,1,01,Uusimaa
+00350,Munkkivuori - Niemenmäki,091,Helsinki,1,01,Uusimaa
+00360,Pajamäki,091,Helsinki,1,01,Uusimaa
+00370,Reimarla,091,Helsinki,1,01,Uusimaa
+00380,Pitäjänmäen yritysalue,091,Helsinki,1,01,Uusimaa
+00390,Konala,091,Helsinki,1,01,Uusimaa
+00400,Pohjois-Haaga,091,Helsinki,1,01,Uusimaa
+00410,Malminkartano,091,Helsinki,1,01,Uusimaa
+00420,Kannelmäki,091,Helsinki,1,01,Uusimaa
+00430,Maununneva - Kuninkaantammi,091,Helsinki,1,01,Uusimaa
+00440,Lassila,091,Helsinki,1,01,Uusimaa
+00500,Sörnäinen - Harju,091,Helsinki,1,01,Uusimaa
+00510,Alppila - Vallila,091,Helsinki,1,01,Uusimaa
+00520,Itä- ja Keski-Pasila,091,Helsinki,1,01,Uusimaa
+00530,Kallio,091,Helsinki,1,01,Uusimaa
+00540,Kalasatama - Sompasaari,091,Helsinki,1,01,Uusimaa
+00550,Vallila - Hermanni,091,Helsinki,1,01,Uusimaa
+00560,Toukola - Kumpula - Vanhakaupunki,091,Helsinki,1,01,Uusimaa
+00570,Kulosaari,091,Helsinki,1,01,Uusimaa
+00580,Kalasatama - Kyläsaari,091,Helsinki,1,01,Uusimaa
+00590,Kruunuvuorenranta,091,Helsinki,1,01,Uusimaa
+00600,Koskela,091,Helsinki,1,01,Uusimaa
+00610,Käpylä,091,Helsinki,1,01,Uusimaa
+00620,Metsälä - Etelä-Oulunkylä,091,Helsinki,1,01,Uusimaa
+00630,Maunula,091,Helsinki,1,01,Uusimaa
+00640,Oulunkylä - Patola,091,Helsinki,1,01,Uusimaa
+00650,Veräjämäki,091,Helsinki,1,01,Uusimaa
+00660,Länsi-Pakila,091,Helsinki,1,01,Uusimaa
+00670,Paloheinä,091,Helsinki,1,01,Uusimaa
+00680,Itä-Pakila,091,Helsinki,1,01,Uusimaa
+00690,Torpparinmäki,091,Helsinki,1,01,Uusimaa
+00700,Malmi,091,Helsinki,1,01,Uusimaa
+00710,Pihlajamäki - Viikinmäki,091,Helsinki,1,01,Uusimaa
+00720,Pukinmäki,091,Helsinki,1,01,Uusimaa
+00730,Tapanila,091,Helsinki,1,01,Uusimaa
+00740,Siltamäki,091,Helsinki,1,01,Uusimaa
+00750,Tapulikaupunki,091,Helsinki,1,01,Uusimaa
+00760,Puistola - Heikinlaakso,091,Helsinki,1,01,Uusimaa
+00770,Jakomäki - Alppikylä,091,Helsinki,1,01,Uusimaa
+00780,Tapaninvainio,091,Helsinki,1,01,Uusimaa
+00790,Viikki,091,Helsinki,1,01,Uusimaa
+00800,Länsi-Herttoniemi,091,Helsinki,1,01,Uusimaa
+00810,Herttoniemenranta,091,Helsinki,1,01,Uusimaa
+00820,Roihuvuori,091,Helsinki,1,01,Uusimaa
+00830,Tammisalo,091,Helsinki,1,01,Uusimaa
+00840,Yliskylä,091,Helsinki,1,01,Uusimaa
+00850,Jollas,091,Helsinki,1,01,Uusimaa
+00860,Santahamina,091,Helsinki,1,01,Uusimaa
+00870,Gunillanmäki - Hevossalmi,091,Helsinki,1,01,Uusimaa
+00880,Keski-Herttoniemi - Roihupelto,091,Helsinki,1,01,Uusimaa
+00890,Östersundom,091,Helsinki,1,01,Uusimaa
+00900,Puotinharju,091,Helsinki,1,01,Uusimaa
+00910,Puotila,091,Helsinki,1,01,Uusimaa
+00920,Myllypuro,091,Helsinki,1,01,Uusimaa
+00930,Itäkeskus - Marjaniemi,091,Helsinki,1,01,Uusimaa
+00940,Kontula - Vesala - Kivikko,091,Helsinki,1,01,Uusimaa
+00950,Vartioharju,091,Helsinki,1,01,Uusimaa
+00960,Pohjois-Vuosaari,091,Helsinki,1,01,Uusimaa
+00970,Mellunmäki,091,Helsinki,1,01,Uusimaa
+00980,Etelä-Vuosaari,091,Helsinki,1,01,Uusimaa
+00990,Aurinkolahti,091,Helsinki,1,01,Uusimaa
+01120,Västerskog,753,Sipoo,1,01,Uusimaa
+01150,Söderkulla,753,Sipoo,1,01,Uusimaa
+01180,Kalkkiranta,753,Sipoo,1,01,Uusimaa
+01190,Box,753,Sipoo,1,01,Uusimaa
+01200,Hakunila,092,Vantaa,1,01,Uusimaa
+01230,Vaarala,092,Vantaa,1,01,Uusimaa
+01260,Itä-Hakkila,092,Vantaa,1,01,Uusimaa
+01280,Länsimäki,092,Vantaa,1,01,Uusimaa
+01300,Tikkurila,092,Vantaa,1,01,Uusimaa
+01340,Leinelä,092,Vantaa,1,01,Uusimaa
+01350,Hiekkaharju,092,Vantaa,1,01,Uusimaa
+01360,Koivukylä-Havukoski,092,Vantaa,1,01,Uusimaa
+01370,Jokiniemi,092,Vantaa,1,01,Uusimaa
+01380,Kuusikko-Hakkila,092,Vantaa,1,01,Uusimaa
+01390,Ruskeasanta-Ilola,092,Vantaa,1,01,Uusimaa
+01400,Rekola,092,Vantaa,1,01,Uusimaa
+01420,Päiväkumpu,092,Vantaa,1,01,Uusimaa
+01450,Korso,092,Vantaa,1,01,Uusimaa
+01480,Mikkola,092,Vantaa,1,01,Uusimaa
+01490,Nikinmäki,092,Vantaa,1,01,Uusimaa
+01510,Kirkonkylä-Veromäki,092,Vantaa,1,01,Uusimaa
+01520,Tammisto,092,Vantaa,1,01,Uusimaa
+01530,Veromiehenkylä,092,Vantaa,1,01,Uusimaa
+01600,Myyrmäki,092,Vantaa,1,01,Uusimaa
+01610,Kaivoksela,092,Vantaa,1,01,Uusimaa
+01620,Martinlaakso,092,Vantaa,1,01,Uusimaa
+01630,Hämeenkylä,092,Vantaa,1,01,Uusimaa
+01640,Hämevaara,092,Vantaa,1,01,Uusimaa
+01650,Vapaala,092,Vantaa,1,01,Uusimaa
+01660,Varisto,092,Vantaa,1,01,Uusimaa
+01670,Vantaanlaakso,092,Vantaa,1,01,Uusimaa
+01680,Askisto,092,Vantaa,1,01,Uusimaa
+01690,Ylästö,092,Vantaa,1,01,Uusimaa
+01700,Kivistö,092,Vantaa,1,01,Uusimaa
+01710,Pähkinärinne,092,Vantaa,1,01,Uusimaa
+01720,Petikko,092,Vantaa,1,01,Uusimaa
+01730,Vantaanpuisto,092,Vantaa,1,01,Uusimaa
+01740,Tuupakan teollisuusalue,092,Vantaa,1,01,Uusimaa
+01750,Keimola,092,Vantaa,1,01,Uusimaa
+01760,Seutula,092,Vantaa,1,01,Uusimaa
+01770,Martinlaakson teollisuusalue,092,Vantaa,1,01,Uusimaa
+01800,Klaukkala Keskus,543,Nurmijärvi,1,01,Uusimaa
+01810,Luhtajoki,543,Nurmijärvi,1,01,Uusimaa
+01820,Haikala,543,Nurmijärvi,1,01,Uusimaa
+01830,Lepsämä,543,Nurmijärvi,1,01,Uusimaa
+01840,Klaukkala,543,Nurmijärvi,1,01,Uusimaa
+01860,Perttula,543,Nurmijärvi,1,01,Uusimaa
+01900,Nurmijärvi Keskus,543,Nurmijärvi,1,01,Uusimaa
+01940,Palojoki,543,Nurmijärvi,1,01,Uusimaa
+02100,Tapiola,049,Espoo,1,01,Uusimaa
+02110,Otsolahti,049,Espoo,1,01,Uusimaa
+02120,Länsikorkee-Suvikumpu,049,Espoo,1,01,Uusimaa
+02130,Pohjois-Tapiola,049,Espoo,1,01,Uusimaa
+02140,Laajalahti,049,Espoo,1,01,Uusimaa
+02150,Otaniemi,049,Espoo,1,01,Uusimaa
+02160,Westend,049,Espoo,1,01,Uusimaa
+02170,Haukilahti,049,Espoo,1,01,Uusimaa
+02180,Mankkaa,049,Espoo,1,01,Uusimaa
+02200,Niittykumpu,049,Espoo,1,01,Uusimaa
+02210,Olari,049,Espoo,1,01,Uusimaa
+02230,Matinkylä,049,Espoo,1,01,Uusimaa
+02240,Friisilä,049,Espoo,1,01,Uusimaa
+02250,Henttaa,049,Espoo,1,01,Uusimaa
+02260,Kaitaa,049,Espoo,1,01,Uusimaa
+02270,Finnoo-Eestinmalmi,049,Espoo,1,01,Uusimaa
+02280,Malminmäki-Eestinlaakso,049,Espoo,1,01,Uusimaa
+02290,Puolarmetsän sairaala,049,Espoo,1,01,Uusimaa
+02300,Nöykkiönpuro,049,Espoo,1,01,Uusimaa
+02320,Espoonlahti,049,Espoo,1,01,Uusimaa
+02330,Saunalahti-Kattilalaakso,049,Espoo,1,01,Uusimaa
+02340,Latokaski,049,Espoo,1,01,Uusimaa
+02360,Soukka,049,Espoo,1,01,Uusimaa
+02380,Suvisaaristo,049,Espoo,1,01,Uusimaa
+02390,Sarvvik,257,Kirkkonummi,1,01,Uusimaa
+02400,Kirkkonummi Keskus,257,Kirkkonummi,1,01,Uusimaa
+02410,Gesterby,257,Kirkkonummi,1,01,Uusimaa
+02420,Jorvas,257,Kirkkonummi,1,01,Uusimaa
+02430,Masala,257,Kirkkonummi,1,01,Uusimaa
+02440,Luoma,257,Kirkkonummi,1,01,Uusimaa
+02450,Sundsberg,257,Kirkkonummi,1,01,Uusimaa
+02460,Kantvik,257,Kirkkonummi,1,01,Uusimaa
+02470,Upinniemi,257,Kirkkonummi,1,01,Uusimaa
+02480,Porkkala,257,Kirkkonummi,1,01,Uusimaa
+02490,Pikkala,755,Siuntio,3,01,Uusimaa
+02510,Oitmäki,257,Kirkkonummi,1,01,Uusimaa
+02520,Lapinkylä,257,Kirkkonummi,1,01,Uusimaa
+02540,Kylmälä,257,Kirkkonummi,1,01,Uusimaa
+02550,Evitskog,257,Kirkkonummi,1,01,Uusimaa
+02570,Siuntio Kirkonkylä,755,Siuntio,3,01,Uusimaa
+02580,Siuntio Asemanseutu,755,Siuntio,3,01,Uusimaa
+02590,Lappers,755,Siuntio,3,01,Uusimaa
+02600,Etelä-Leppävaara,049,Espoo,1,01,Uusimaa
+02610,Kilo,049,Espoo,1,01,Uusimaa
+02620,Karakallio,049,Espoo,1,01,Uusimaa
+02630,Nihtisilta,049,Espoo,1,01,Uusimaa
+02650,Pohjois-Leppävaara,049,Espoo,1,01,Uusimaa
+02660,Lintuvaara,049,Espoo,1,01,Uusimaa
+02680,Uusmäki,049,Espoo,1,01,Uusimaa
+02700,Kauniainen,235,Kauniainen,1,01,Uusimaa
+02710,Viherlaakso,049,Espoo,1,01,Uusimaa
+02720,Lähderanta,049,Espoo,1,01,Uusimaa
+02730,Jupperi,049,Espoo,1,01,Uusimaa
+02740,Bemböle-Pakankylä,049,Espoo,1,01,Uusimaa
+02750,Sepänkylä-Kuurinniitty,049,Espoo,1,01,Uusimaa
+02760,Tuomarila-Suvela,049,Espoo,1,01,Uusimaa
+02770,Espoon Keskus,049,Espoo,1,01,Uusimaa
+02780,Kauklahti,049,Espoo,1,01,Uusimaa
+02810,Gumböle-Karhusuo,049,Espoo,1,01,Uusimaa
+02820,Nupuri-Nuuksio,049,Espoo,1,01,Uusimaa
+02860,Siikajärvi,049,Espoo,1,01,Uusimaa
+02880,Veikkola,257,Kirkkonummi,1,01,Uusimaa
+02920,Niipperi,049,Espoo,1,01,Uusimaa
+02940,Lippajärvi-Järvenperä,049,Espoo,1,01,Uusimaa
+02970,Kalajärvi,049,Espoo,1,01,Uusimaa
+02980,Lakisto,049,Espoo,1,01,Uusimaa
+03100,Nummela,927,Vihti,2,01,Uusimaa
+03150,Huhmari,927,Vihti,2,01,Uusimaa
+03220,Tervalampi,927,Vihti,2,01,Uusimaa
+03250,Ojakkala,927,Vihti,2,01,Uusimaa
+03300,Otalampi,927,Vihti,2,01,Uusimaa
+03320,Selki,927,Vihti,2,01,Uusimaa
+03400,Vihti Kirkonkylä,927,Vihti,2,01,Uusimaa
+03430,Jokikunta,927,Vihti,2,01,Uusimaa
+03600,Karkkila Keskus,224,Karkkila,2,01,Uusimaa
+03620,Polari,224,Karkkila,2,01,Uusimaa
+03710,Uusitalo,224,Karkkila,2,01,Uusimaa
+03790,Vihtijärvi,927,Vihti,2,01,Uusimaa
+03810,Ikkala,444,Lohja,1,01,Uusimaa
+03850,Pusula,444,Lohja,1,01,Uusimaa
+03870,Hyönölä,444,Lohja,1,01,Uusimaa
+04130,Sipoo,753,Sipoo,1,01,Uusimaa
+04150,Martinkylä,753,Sipoo,1,01,Uusimaa
+04170,Paippinen,753,Sipoo,1,01,Uusimaa
+04200,Kerava Keskus,245,Kerava,1,01,Uusimaa
+04220,Ahjo-Kaskela,245,Kerava,1,01,Uusimaa
+04230,Pihkaniitty,245,Kerava,1,01,Uusimaa
+04240,Talma,753,Sipoo,1,01,Uusimaa
+04250,Alikerava,245,Kerava,1,01,Uusimaa
+04260,Savio,245,Kerava,1,01,Uusimaa
+04300,Hyrylä,858,Tuusula,1,01,Uusimaa
+04310,Tuusula Kirkonkylä,858,Tuusula,1,01,Uusimaa
+04320,Riihikallio,858,Tuusula,1,01,Uusimaa
+04330,Lahela,858,Tuusula,1,01,Uusimaa
+04340,Mattila,858,Tuusula,1,01,Uusimaa
+04350,Nahkela,858,Tuusula,1,01,Uusimaa
+04360,Ruotsinkylä-Kiilinmäki,858,Tuusula,1,01,Uusimaa
+04370,Rusutjärvi,858,Tuusula,1,01,Uusimaa
+04380,Tuomala,858,Tuusula,1,01,Uusimaa
+04390,Jäniksenlinna,858,Tuusula,1,01,Uusimaa
+04400,Loutti,186,Järvenpää,1,01,Uusimaa
+04410,Järvenpää Keskus,186,Järvenpää,1,01,Uusimaa
+04420,Kyrölä,186,Järvenpää,1,01,Uusimaa
+04430,Kinnari-Mikonkorpi,186,Järvenpää,1,01,Uusimaa
+04440,Jamppa,186,Järvenpää,1,01,Uusimaa
+04460,Nummenkylä,186,Järvenpää,1,01,Uusimaa
+04480,Haarajoki,186,Järvenpää,1,01,Uusimaa
+04500,Kellokoski,858,Tuusula,1,01,Uusimaa
+04530,Ohkola,505,Mäntsälä,2,01,Uusimaa
+04600,Mäntsälä Keskus,505,Mäntsälä,2,01,Uusimaa
+04620,Kaunismäki,505,Mäntsälä,2,01,Uusimaa
+04630,Sääksjärvi,505,Mäntsälä,2,01,Uusimaa
+04660,Numminen,505,Mäntsälä,2,01,Uusimaa
+04680,Hirvihaara,505,Mäntsälä,2,01,Uusimaa
+04740,Sälinkää,505,Mäntsälä,2,01,Uusimaa
+04770,Sahakylä,505,Mäntsälä,2,01,Uusimaa
+04820,Kaukalampi,505,Mäntsälä,2,01,Uusimaa
+04840,Hautjärvi,505,Mäntsälä,2,01,Uusimaa
+04920,Saarentaus,505,Mäntsälä,2,01,Uusimaa
+04940,Levanto,505,Mäntsälä,2,01,Uusimaa
+05100,Röykkä,543,Nurmijärvi,1,01,Uusimaa
+05200,Rajamäki,543,Nurmijärvi,1,01,Uusimaa
+05250,Kiljava,543,Nurmijärvi,1,01,Uusimaa
+05400,Jokela,858,Tuusula,1,01,Uusimaa
+05430,Nuppulinna,858,Tuusula,1,01,Uusimaa
+05440,Hyvinkää,106,Hyvinkää,1,01,Uusimaa
+05450,Nukari,543,Nurmijärvi,1,01,Uusimaa
+05460,Hakalanmäki-Hakala,106,Hyvinkää,1,01,Uusimaa
+05470,Palopuro,106,Hyvinkää,1,01,Uusimaa
+05510,Päivärinta,106,Hyvinkää,1,01,Uusimaa
+05620,Noppo,106,Hyvinkää,1,01,Uusimaa
+05720,Kytäjä,106,Hyvinkää,1,01,Uusimaa
+05800,Hyvinkää Keskus,106,Hyvinkää,1,01,Uusimaa
+05810,Martti,106,Hyvinkää,1,01,Uusimaa
+05820,Mustamännistö,106,Hyvinkää,1,01,Uusimaa
+05830,Kirjavatolppa-Kruununpuisto,106,Hyvinkää,1,01,Uusimaa
+05840,Hyvinkäänkylä-Vehkoja,106,Hyvinkää,1,01,Uusimaa
+05850,"Hyvinkää, sairaala-alue",106,Hyvinkää,1,01,Uusimaa
+05860,Talvisilta,106,Hyvinkää,1,01,Uusimaa
+05880,Paavola-Vaivero,106,Hyvinkää,1,01,Uusimaa
+05900,Vieremä,106,Hyvinkää,1,01,Uusimaa
+05950,Ridasjärvi,106,Hyvinkää,1,01,Uusimaa
+06100,Porvoo Keskus,638,Porvoo,1,01,Uusimaa
+06150,Kevätkumpu,638,Porvoo,1,01,Uusimaa
+06200,Porvoo itäinen,638,Porvoo,1,01,Uusimaa
+06400,Gammelbacka,638,Porvoo,1,01,Uusimaa
+06450,Eestinmäki-Ernestas,638,Porvoo,1,01,Uusimaa
+06500,Saksala-Suomenkylä,638,Porvoo,1,01,Uusimaa
+06530,Kerkkoo,638,Porvoo,1,01,Uusimaa
+06650,Hamari,638,Porvoo,1,01,Uusimaa
+06750,Tolkkinen,638,Porvoo,1,01,Uusimaa
+06830,Kulloonkylä,638,Porvoo,1,01,Uusimaa
+06850,Kulloo,638,Porvoo,1,01,Uusimaa
+06880,Kärrby,753,Sipoo,1,01,Uusimaa
+06950,Emäsalo,638,Porvoo,1,01,Uusimaa
+07110,Hinthaara,638,Porvoo,1,01,Uusimaa
+07130,Anttila,638,Porvoo,1,01,Uusimaa
+07150,Laukkoski,611,Pornainen,3,01,Uusimaa
+07170,Keski-Pornainen,611,Pornainen,3,01,Uusimaa
+07190,Halkia,611,Pornainen,3,01,Uusimaa
+07220,Kaarenkylä,638,Porvoo,1,01,Uusimaa
+07230,Monninkylä,018,Askola,3,01,Uusimaa
+07280,Ilola,638,Porvoo,1,01,Uusimaa
+07310,Sannainen,638,Porvoo,1,01,Uusimaa
+07320,Jakari-Sannäs,638,Porvoo,1,01,Uusimaa
+07350,Gäddrag,638,Porvoo,1,01,Uusimaa
+07360,Tirmo,638,Porvoo,1,01,Uusimaa
+07370,Pellinki,638,Porvoo,1,01,Uusimaa
+07390,Suurpellinki,638,Porvoo,1,01,Uusimaa
+07410,Kråkö,638,Porvoo,1,01,Uusimaa
+07450,Voolahti,638,Porvoo,1,01,Uusimaa
+07500,Askola Kirkonkylä,018,Askola,3,01,Uusimaa
+07510,Vakkola,018,Askola,3,01,Uusimaa
+07530,Onkimaa,018,Askola,3,01,Uusimaa
+07550,Torpinkylä,616,Pukkila,3,01,Uusimaa
+07560,Pukkila Keskus,616,Pukkila,3,01,Uusimaa
+07565,Kantele,616,Pukkila,3,01,Uusimaa
+07580,Tiilää,018,Askola,3,01,Uusimaa
+07590,Huuvari-Tiilää,018,Askola,3,01,Uusimaa
+07600,Myrskylä Keskus,504,Myrskylä,3,01,Uusimaa
+07680,Juornaankylä,018,Askola,3,01,Uusimaa
+07690,Kankkila,504,Myrskylä,3,01,Uusimaa
+07700,Koskenkylän saha-alue,434,Loviisa,2,01,Uusimaa
+07720,Malmgård,434,Loviisa,2,01,Uusimaa
+07740,Gammelby,434,Loviisa,2,01,Uusimaa
+07750,Isnäs,434,Loviisa,2,01,Uusimaa
+07780,Härkäpää,434,Loviisa,2,01,Uusimaa
+07800,Lapinjärvi Keskus,407,Lapinjärvi,3,01,Uusimaa
+07810,Ingermaninkylä,407,Lapinjärvi,3,01,Uusimaa
+07820,Porlammi,407,Lapinjärvi,3,01,Uusimaa
+07830,Pukaro,407,Lapinjärvi,3,01,Uusimaa
+07840,Lindkoski,407,Lapinjärvi,3,01,Uusimaa
+07850,Heikinkylä,407,Lapinjärvi,3,01,Uusimaa
+07870,Skinnarby,434,Loviisa,2,01,Uusimaa
+07880,Liljendal Keskus,434,Loviisa,2,01,Uusimaa
+07890,Mickelspiltom,434,Loviisa,2,01,Uusimaa
+07900,Loviisa Keskus,434,Loviisa,2,01,Uusimaa
+07910,Valko,434,Loviisa,2,01,Uusimaa
+07920,Etelä-Harju,434,Loviisa,2,01,Uusimaa
+07930,Pernaja Kirkonkylä,434,Loviisa,2,01,Uusimaa
+07940,Määrlahti,434,Loviisa,2,01,Uusimaa
+07945,Kuggom,434,Loviisa,2,01,Uusimaa
+07955,Tesjoki,434,Loviisa,2,01,Uusimaa
+07960,Ahvenkoski,434,Loviisa,2,01,Uusimaa
+07970,Ruotsinpyhtää Keskus,434,Loviisa,2,01,Uusimaa
+07980,Kuninkaankylä,434,Loviisa,2,01,Uusimaa
+07990,Ruotsinkylä-Koskisto,434,Loviisa,2,01,Uusimaa
+08100,Lohja Keskus,444,Lohja,1,01,Uusimaa
+08150,Keskilohja,444,Lohja,1,01,Uusimaa
+08200,Ojamo,444,Lohja,1,01,Uusimaa
+08350,Routio,444,Lohja,1,01,Uusimaa
+08360,Kisakallio,444,Lohja,1,01,Uusimaa
+08450,Hormajärvi,444,Lohja,1,01,Uusimaa
+08480,Karstu,444,Lohja,1,01,Uusimaa
+08500,Ventelä-Millola,444,Lohja,1,01,Uusimaa
+08680,Muijala,444,Lohja,1,01,Uusimaa
+08700,Virkkala,444,Lohja,1,01,Uusimaa
+08800,Kirkniemi,444,Lohja,1,01,Uusimaa
+09120,Karjalohja,444,Lohja,1,01,Uusimaa
+09220,Sammatti,444,Lohja,1,01,Uusimaa
+09430,Saukkola,444,Lohja,1,01,Uusimaa
+09520,Millola,444,Lohja,1,01,Uusimaa
+09630,Koisjärvi,444,Lohja,1,01,Uusimaa
+09810,Nummi-Oinola,444,Lohja,1,01,Uusimaa
+09930,Leppäkorpi,444,Lohja,1,01,Uusimaa
+10120,Tähtelä,149,Inkoo,3,01,Uusimaa
+10140,Päivölä,149,Inkoo,3,01,Uusimaa
+10160,Degerby,149,Inkoo,3,01,Uusimaa
+10210,Inkoo Keskus,149,Inkoo,3,01,Uusimaa
+10230,Inkoo Asemanseutu,149,Inkoo,3,01,Uusimaa
+10250,Fagervik,149,Inkoo,3,01,Uusimaa
+10270,Barösund,149,Inkoo,3,01,Uusimaa
+10300,Karjaa Keskus,710,Raasepori,2,01,Uusimaa
+10320,Bäljars,710,Raasepori,2,01,Uusimaa
+10330,Pinjainen,710,Raasepori,2,01,Uusimaa
+10350,Meltolan sairaala-alue,710,Raasepori,2,01,Uusimaa
+10360,Mustio,710,Raasepori,2,01,Uusimaa
+10380,Kaunislahti,710,Raasepori,2,01,Uusimaa
+10410,Åminnefors,710,Raasepori,2,01,Uusimaa
+10420,Pohjankuru,710,Raasepori,2,01,Uusimaa
+10440,Bollsta,710,Raasepori,2,01,Uusimaa
+10470,Fiskari,710,Raasepori,2,01,Uusimaa
+10480,Antskog,710,Raasepori,2,01,Uusimaa
+10520,Tenhola Kirkonkylä,710,Raasepori,2,01,Uusimaa
+10570,Bromarv,710,Raasepori,2,01,Uusimaa
+10600,Tammisaari Keskus,710,Raasepori,2,01,Uusimaa
+10620,Tammisaari,710,Raasepori,2,01,Uusimaa
+10640,Dragsvik,710,Raasepori,2,01,Uusimaa
+10650,Flyet,710,Raasepori,2,01,Uusimaa
+10660,Trollböle,710,Raasepori,2,01,Uusimaa
+10680,Skogby,710,Raasepori,2,01,Uusimaa
+10710,Snappertuna,710,Raasepori,2,01,Uusimaa
+10820,Lappohja,078,Hanko,1,01,Uusimaa
+10900,Hanko Keskus,078,Hanko,1,01,Uusimaa
+10940,Hangonkylä,078,Hanko,1,01,Uusimaa
+10960,Hanko Pohjoinen,078,Hanko,1,01,Uusimaa

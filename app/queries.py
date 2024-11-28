@@ -55,3 +55,29 @@ class Queries:
         sql = "SELECT username FROM user_credentials WHERE username ILIKE :query"
         result = self.db.conn.session.execute(text(sql), {'query': f"{query}%"}).fetchall()
         return [{'username': row.username} for row in result]
+    
+    def add_observation(self, user_id, postal_area_id, temperature, cloudiness, precipitation_amount, precipitation_type, observation_time):
+        sql = """
+        INSERT INTO observations (user_id, postal_area_id, temperature, cloudiness, precipitation_amount, precipitation_type, observation_time)
+        VALUES (:user_id, :postal_area_id, :temperature, :cloudiness, :precipitation_amount, :precipitation_type, :observation_time)
+        """
+        self.db.conn.session.execute(text(sql), {
+            'user_id': user_id,
+            'postal_area_id': postal_area_id,
+            'temperature': temperature,
+            'cloudiness': cloudiness,
+            'precipitation_amount': precipitation_amount,
+            'precipitation_type': precipitation_type,
+            'observation_time': observation_time
+        })
+        self.db.conn.session.commit()
+
+    def get_parameters(self):
+        sql = "SELECT id, description FROM parameters"
+        result = self.db.conn.session.execute(text(sql)).fetchall()
+        return [{'id': row.id, 'description': row.description} for row in result]
+    
+    def get_postal_areas(self):
+        sql = "SELECT id, postal_code, name FROM postal_areas"
+        result = self.db.conn.session.execute(text(sql)).fetchall()
+        return [{'id': row.id, 'postal_code': row.postal_code, 'name': row.name} for row in result]
