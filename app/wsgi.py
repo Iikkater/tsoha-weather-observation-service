@@ -7,6 +7,7 @@ from db import Database
 from queries import Queries
 from import_postal_areas import import_postal_areas
 from check_data import check_observation_data
+import pytz
 
 # Load environment variables from .env file
 load_dotenv()
@@ -127,7 +128,8 @@ def add_observation():
         cloudiness = request.form.get("cloudiness", type=int)
         precipitation_amount = request.form.get("precipitation_amount", type=int)
         precipitation_type = request.form.get("precipitation_type", type=int)
-        observation_time = datetime.now(timezone.utc)
+        finland = pytz.timezone("Europe/Helsinki")
+        observation_time = datetime.now(finland)
 
         # Tarkista datan oikeellisuus
         errors = check_observation_data(temperature, cloudiness, precipitation_amount, precipitation_type)
@@ -143,6 +145,44 @@ def add_observation():
     parameters = queries.get_parameters()
     postal_areas = queries.get_postal_areas()
     return render_template("add_observation.html", parameters=parameters, postal_areas=postal_areas)
+
+@app.route("/find_data", methods=["GET", "POST"])
+def find_data():
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        user_id = session.get("user_id")
+        tier = session.get("tier")
+        start_date_str = request.form["start_date"]
+        start_time_str = request.form.get("start_time")
+        end_date_str = request.form.get("end_date")
+        end_time_str = request.form.get("end_time")
+        postal_code = request.form.get("postal_code")
+
+        # Aseta oletusarvot, jos kentät ovat tyhjiä
+        if not start_time_str:
+            start_time_str = "00:00"
+        if not end_date_str:
+            end_date_str = start_date_str
+        if not end_time_str:
+            end_time_str = "23:59"
+
+        # Muunna päivämäärät ja ajat datetime-objekteiksi
+        finland = pytz.timezone('Europe/Helsinki')
+        start_datetime_str = f"{start_date_str} {start_time_str}"
+        end_datetime_str = f"{end_date_str} {end_time_str}"
+        try:
+            start_time = finland.localize(datetime.strptime(start_datetime_str, '%d-%m-%Y %H:%M'))
+            end_time = finland.localize(datetime.strptime(end_datetime_str, '%d-%m-%Y %H:%M'))
+        except ValueError as e:
+            flash(f"Virheellinen päivämäärä tai kellonaika: {e}")
+            return redirect(url_for("find_data"))
+
+        observations = queries.get_observations(user_id, tier, start_time, end_time, postal_code)
+        return render_template("find_data.html", observations=observations)
+
+    return render_template("find_data.html", observations=[])
 
 if __name__ == '__main__':
     app.run(debug=True)
