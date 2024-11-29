@@ -134,3 +134,13 @@ class Queries:
             for observation in observations:
                 observation.pop('id', None)
         return observations
+    
+    def search_observations(self, query):
+        sql = "SELECT id FROM observations WHERE id::text ILIKE :query"
+        result = self.db.conn.session.execute(text(sql), {'query': f"{query}%"}).fetchall()
+        return [{'id': row.id} for row in result]
+    
+    def delete_observation(self, observation_id):
+        sql = "DELETE FROM observations WHERE id = :id"
+        self.db.conn.session.execute(text(sql), {'id': observation_id})
+        self.db.conn.session.commit()

@@ -15,7 +15,7 @@
 
     {% if session.tier == 'admin' %}
     <h2>Admin-toiminnot</h2>
-    {% with messages = get_flashed_messages(category_filter=["change_tier"]) %}
+    {% with messages = get_flashed_messages(category_filter=["change_tier", "delete_observation"]) %}
         {% if messages %}
             <ul>
             {% for message in messages %}
@@ -39,6 +39,16 @@
             <option value="locked">Lukittu</option>
         </select><br><br>
         <input type="submit" value="Muuta käyttäjätasoa">
+    </form>
+
+    <h3>Poista havainto</h3>
+    <form action="/delete_observation" method="post">
+        <label for="observation_id">Havainnon ID:</label>
+        <div style="position: relative; width: 15em;">
+            <input type="text" id="observation_id" name="observation_id" oninput="fetchObservations(this.value)" required style="width: 100%;">
+            <div id="observation-suggestions" class="suggestions"></div>
+        </div><br><br>
+        <input type="submit" value="Poista havainto">
     </form>
     {% endif %}
 

@@ -188,5 +188,23 @@ def find_data():
 
     return render_template("find_data.html", observations=[], stats={})
 
+@app.route("/search_observations", methods=["GET"])
+def search_observations():
+    query = request.args.get("q", "")
+    observations = queries.search_observations(query)
+    observation_list = [{"id": observation['id']} for observation in observations]
+    return jsonify(observation_list)
+
+@app.route("/delete_observation", methods=["POST"])
+def delete_observation():
+    if "username" not in session or session["tier"] != "admin":
+        flash("Sinulla ei ole oikeuksia poistaa havaintoja.", "delete_observation")
+        return redirect(url_for("user"))
+
+    observation_id = request.form["observation_id"]
+    queries.delete_observation(observation_id)
+    flash("Havainto poistettu onnistuneesti.", "delete_observation")
+    return redirect(url_for("user"))
+
 if __name__ == '__main__':
     app.run(debug=True)
