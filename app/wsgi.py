@@ -119,7 +119,7 @@ def search_users():
     user_list = [{"username": user['username']} for user in users]
     return jsonify(user_list)
 
-@app.route("/add_observation", methods=["GET", "POST"])
+@app.route("/user/add_observation", methods=["GET", "POST"])
 def add_observation():
     if request.method == "POST":
         user_id = session.get("user_id")
@@ -146,7 +146,7 @@ def add_observation():
     postal_areas = queries.get_postal_areas()
     return render_template("add_observation.html", parameters=parameters, postal_areas=postal_areas)
 
-@app.route("/find_data", methods=["GET", "POST"])
+@app.route("/user/find_data", methods=["GET", "POST"])
 def find_data():
     if "username" not in session:
         return redirect(url_for("login"))
