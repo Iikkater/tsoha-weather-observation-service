@@ -8,6 +8,7 @@ from queries import Queries
 from import_postal_areas import import_postal_areas
 from check_data import check_observation_data
 import pytz
+from stats import calculate_statistics
 
 # Load environment variables from .env file
 load_dotenv()
@@ -179,9 +180,13 @@ def find_data():
             return redirect(url_for("user.find_data"))
 
         observations = queries.get_observations(tier, start_time, end_time, postal_code)
-        return render_template("find_data.html", observations=observations)
+        if len(observations) > 1:
+            stats = calculate_statistics(observations)
+        else:
+            stats = None
+        return render_template("find_data.html", observations=observations, stats=stats)
 
-    return render_template("find_data.html", observations=[])
+    return render_template("find_data.html", observations=[], stats={})
 
 if __name__ == '__main__':
     app.run(debug=True)

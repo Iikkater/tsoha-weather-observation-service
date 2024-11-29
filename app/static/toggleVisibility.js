@@ -7,4 +7,13 @@ $(document).ready(function() {
             $(this).text("Näytä havainnot");
         }
     });
+
+    $("#toggleStats").click(function() {
+        $("#statisticsTable").toggle();
+        if ($("#statisticsTable").is(":visible")) {
+            $(this).text("Piilota tilastot");
+        } else {
+            $(this).text("Näytä tilastot");
+        }
+    });
 });

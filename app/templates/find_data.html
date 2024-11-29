@@ -37,48 +37,95 @@
         <br>
         <label for="postal_code">Postinumero:</label>
         <input type="text" name="postal_code" id="postal_code" placeholder="Postinumero">
-        <br>
-        <button type="submit">Hae havaintoja</button>
+        <br><br>
+        <button type="submit" class="button button-green">Hae havaintoja</button>
     </form>
-    <h2>Havainnot</h2>
     {% if observations %}
-    <button id="toggleTable" class="button button-blue">Piilota havainnot</button>
-    <div id="observationsTable">
-        <table>
-            <thead>
-                <tr>
-                    {% if session.tier == 'admin' %}
-                        <th>Havainnon ID</th>
-                    {% endif %}
-                    <th>Käyttäjä</th>
-                    <th>Postinumero</th>
-                    <th>Lämpötila (°C)</th>
-                    <th>Pilvisyys</th>
-                    <th>Sateen määrä</th>
-                    <th>Sateen tyyppi</th>
-                    <th>Havainnon aika</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for observation in observations %}
+        <h2>Havainnot</h2>
+        <button id="toggleTable" class="button button-blue">Piilota havainnot</button>
+        <div id="observationsTable">
+            <table>
+                <thead>
                     <tr>
                         {% if session.tier == 'admin' %}
-                            <td>{{ observation.id }}</td>
+                            <th>Havainnon ID</th>
                         {% endif %}
-                        <td>{{ observation.username }}</td>
-                        <td>{{ observation.postal_code }}</td>
-                        <td>{{ observation.temperature }}</td>
-                        <td>{{ observation.cloudiness }}</td>
-                        <td>{{ observation.precipitation_amount }}</td>
-                        <td>{{ observation.precipitation_type }}</td>
-                        <td>{{ observation.observation_time.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <th>Käyttäjä</th>
+                        <th>Postinumero</th>
+                        <th>Lämpötila (°C)</th>
+                        <th>Pilvisyys</th>
+                        <th>Sateen määrä</th>
+                        <th>Sateen tyyppi</th>
+                        <th>Havainnon aika</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-{% else %}
-    <p>Ei havaintoja valitulla aikavälillä.</p>
-{% endif %}
+                </thead>
+                <tbody>
+                    {% for observation in observations %}
+                        <tr>
+                            {% if session.tier == 'admin' %}
+                                <td>{{ observation.id }}</td>
+                            {% endif %}
+                            <td>{{ observation.username }}</td>
+                            <td>{{ observation.postal_code }}</td>
+                            <td>{{ observation.temperature }}</td>
+                            <td>{{ observation.cloudiness }}</td>
+                            <td>{{ observation.precipitation_amount }}</td>
+                            <td>{{ observation.precipitation_type }}</td>
+                            <td>{{ observation.observation_time.strftime('%Y-%m-%d %H:%M') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if stats %}
+            <h2>Tilastot</h2>
+            <button id="toggleStats" class="button button-blue">Piilota tilastot</button>
+            <div id="statisticsTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parametri</th>
+                            <th>Keskiarvo</th>
+                            <th>Moodi</th>
+                            <th>Minimi</th>
+                            <th>Maksimi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lämpötila (°C)</td>
+                            <td>{{ stats.temperature.mean | default('-') }}</td>
+                            <td>-</td>
+                            <td>{{ stats.temperature.min | default('-') }}</td>
+                            <td>{{ stats.temperature.max | default('-') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Pilvisyys</td>
+                            <td>-</td>
+                            <td>{{ stats.cloudiness.mode | default('-') }}</td>
+                            <td>{{ stats.cloudiness.min | default('-') }}</td>
+                            <td>{{ stats.cloudiness.max | default('-') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Sateen määrä</td>
+                            <td>-</td>
+                            <td>{{ stats.precipitation_amount.mode | default('-') }}</td>
+                            <td>{{ stats.precipitation_amount.min | default('-') }}</td>
+                            <td>{{ stats.precipitation_amount.max | default('-') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Sateen tyyppi</td>
+                            <td>-</td>
+                            <td>{{ stats.precipitation_type.mode | default('-') }}</td>
+                            <td>{{ stats.precipitation_type.min | default('-') }}</td>
+                            <td>{{ stats.precipitation_type.max | default('-') }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    {% else %}
+        <p>Ei havaintoja valitulla aikavälillä.</p>
+    {% endif %}
 </body>
 </html>
