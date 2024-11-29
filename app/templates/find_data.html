@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Hae havaintoja</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="{{ url_for('static', filename='datepicker.js') }}"></script>
+    <script src="{{ url_for('static', filename='toggleVisibility.js') }}"></script>
 </head>
 <body>
     <a href="{{ url_for('user') }}" class="button button-blue">Takaisin kotisivulle</a>
@@ -18,16 +23,16 @@
         {% endif %}
     {% endwith %}
     <form method="POST" action="{{ url_for('find_data') }}">
-        <label for="start_date">Alkupäivämäärä (dd-mm-yyyy):</label>
+        <label for="start_date">Alkupäivämäärä:</label>
         <input type="text" name="start_date" id="start_date" placeholder="dd-mm-yyyy" required>
         <br>
-        <label for="start_time">Alkuaika (hh:mm):</label>
+        <label for="start_time">Alkuaika:</label>
         <input type="text" name="start_time" id="start_time" placeholder="hh:mm">
         <br>
-        <label for="end_date">Loppupäivämäärä (dd-mm-yyyy):</label>
+        <label for="end_date">Loppupäivämäärä:</label>
         <input type="text" name="end_date" id="end_date" placeholder="dd-mm-yyyy">
         <br>
-        <label for="end_time">Loppuaika (hh:mm):</label>
+        <label for="end_time">Loppuaika:</label>
         <input type="text" name="end_time" id="end_time" placeholder="hh:mm">
         <br>
         <label for="postal_code">Postinumero:</label>
@@ -37,9 +42,14 @@
     </form>
     <h2>Havainnot</h2>
     {% if observations %}
+    <button id="toggleTable" class="button button-blue">Piilota havainnot</button>
+    <div id="observationsTable">
         <table>
             <thead>
                 <tr>
+                    {% if session.tier == 'admin' %}
+                        <th>Havainnon ID</th>
+                    {% endif %}
                     <th>Käyttäjä</th>
                     <th>Postinumero</th>
                     <th>Lämpötila (°C)</th>
@@ -52,7 +62,10 @@
             <tbody>
                 {% for observation in observations %}
                     <tr>
-                        <td>{{ observation.user_id }}</td>
+                        {% if session.tier == 'admin' %}
+                            <td>{{ observation.id }}</td>
+                        {% endif %}
+                        <td>{{ observation.username }}</td>
                         <td>{{ observation.postal_code }}</td>
                         <td>{{ observation.temperature }}</td>
                         <td>{{ observation.cloudiness }}</td>
@@ -63,8 +76,9 @@
                 {% endfor %}
             </tbody>
         </table>
-    {% else %}
-        <p>Ei havaintoja valitulla aikavälillä.</p>
-    {% endif %}
+    </div>
+{% else %}
+    <p>Ei havaintoja valitulla aikavälillä.</p>
+{% endif %}
 </body>
 </html>

@@ -152,12 +152,11 @@ def find_data():
         return redirect(url_for("login"))
 
     if request.method == "POST":
-        user_id = session.get("user_id")
         tier = session.get("tier")
         start_date_str = request.form["start_date"]
-        start_time_str = request.form.get("start_time")
-        end_date_str = request.form.get("end_date")
-        end_time_str = request.form.get("end_time")
+        start_time_str = request.form.get("start_time", "00:00")
+        end_date_str = request.form.get("end_date", start_date_str)
+        end_time_str = request.form.get("end_time", "23:59")
         postal_code = request.form.get("postal_code")
 
         # Aseta oletusarvot, jos kentät ovat tyhjiä
@@ -177,9 +176,9 @@ def find_data():
             end_time = finland.localize(datetime.strptime(end_datetime_str, '%d-%m-%Y %H:%M'))
         except ValueError as e:
             flash(f"Virheellinen päivämäärä tai kellonaika: {e}")
-            return redirect(url_for("find_data"))
+            return redirect(url_for("user.find_data"))
 
-        observations = queries.get_observations(user_id, tier, start_time, end_time, postal_code)
+        observations = queries.get_observations(tier, start_time, end_time, postal_code)
         return render_template("find_data.html", observations=observations)
 
     return render_template("find_data.html", observations=[])

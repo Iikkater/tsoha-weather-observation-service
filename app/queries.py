@@ -113,36 +113,24 @@ class Queries:
         result = self.db.conn.session.execute(text(sql)).fetchall()
         return [{'id': row.id, 'postal_code': row.postal_code, 'name': row.name} for row in result]
     
-    def get_observations(self, user_id, tier, start_time, end_time, postal_code=None):
-        if tier in ['admin', 'meteorologist']:
-            sql = """
-            SELECT o.*, pa.postal_code FROM observations o
-            JOIN postal_areas pa ON o.postal_area_id = pa.id
-            WHERE o.observation_time BETWEEN :start_time AND :end_time
-            """
-            if postal_code:
-                sql += " AND pa.postal_code = :postal_code"
-            sql += " LIMIT 100"
-            result = self.db.conn.session.execute(text(sql), {
-                'start_time': start_time,
-                'end_time': end_time,
-                'postal_code': postal_code
-            }).fetchall()
-        else:
-            sql = """
-            SELECT o.*, pa.postal_code FROM observations o
-            JOIN postal_areas pa ON o.postal_area_id = pa.id
-            WHERE o.user_id = :user_id
-            AND o.observation_time BETWEEN :start_time AND :end_time
-            """
-            if postal_code:
-                sql += " AND pa.postal_code = :postal_code"
-            sql += " LIMIT 100"
-            result = self.db.conn.session.execute(text(sql), {
-                'user_id': user_id,
-                'start_time': start_time,
-                'end_time': end_time,
-                'postal_code': postal_code
-            }).fetchall()
+    def get_observations(self, tier, start_time, end_time, postal_code=None):
+        sql = """
+        SELECT o.*, pa.postal_code, uc.username FROM observations o
+        JOIN postal_areas pa ON o.postal_area_id = pa.id
+        JOIN user_credentials uc ON o.user_id = uc.id
+        WHERE o.observation_time BETWEEN :start_time AND :end_time
+        """
+        if postal_code:
+            sql += " AND pa.postal_code = :postal_code"
+        sql += " LIMIT 100"
+        result = self.db.conn.session.execute(text(sql), {
+            'start_time': start_time,
+            'end_time': end_time,
+            'postal_code': postal_code
+        }).fetchall()
 
-        return [dict(row._mapping) for row in result]
+        observations = [dict(row._mapping) for row in result]
+        if tier != 'admin':
+            for observation in observations:
+                observation.pop('id', None)
+        return observations
