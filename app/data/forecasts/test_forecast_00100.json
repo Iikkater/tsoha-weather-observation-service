@@ -1,0 +1,181 @@
+{
+    "forecastHourly": {
+      "name": "HourlyForecast",
+      "metadata": {
+        "analysisTime": "2024-11-28 12:00:00",
+        "forecastLength": 24,
+        "timezone": "SA",
+        "area": "00180"
+      },
+      "hours": [
+        {
+          "forecastStart": "2024-11-29 00:00:00",
+          "temperature": 100,
+          "cloudCover": 1,
+          "precipitationAmount": 0,
+          "precipitationType": 0
+        },
+        {
+          "forecastStart": "2024-11-29 01:00:00",
+          "temperature": 5.5,
+          "cloudCover": 2,
+          "precipitationAmount": 0,
+          "precipitationType": 0
+        },
+        {
+          "forecastStart": "2024-11-29 02:00:00",
+          "temperature": 5.2,
+          "cloudCover": 0,
+          "precipitationAmount": 1,
+          "precipitationType": 1
+        },
+        {
+          "forecastStart": "2024-11-29 03:00:00",
+          "temperature": 4.8,
+          "cloudCover": 2,
+          "precipitationAmount": 0,
+          "precipitationType": 0
+        },
+        {
+          "forecastStart": "2024-11-29 04:00:00",
+          "temperature": 4.5,
+          "cloudCover": 1,
+          "precipitationAmount": 0,
+          "precipitationType": 0
+        },
+        {
+          "forecastStart": "2024-11-29 05:00:00",
+          "temperature": 4.0,
+          "cloudCover": 0,
+          "precipitationAmount": 0,
+          "precipitationType": 0
+        },
+        {
+          "forecastStart": "2024-11-29 06:00:00",
+          "temperature": 3.5,
+          "cloudCover": 1,
+          "precipitationAmount": 0,
+          "precipitationType": 0
+        },
+        {
+          "forecastStart": "2024-11-29 07:00:00",
+          "temperature": 3.0,
+          "cloudCover": 2,
+          "precipitationAmount": 1,
+          "precipitationType": 2
+        },
+        {
+          "forecastStart": "2024-11-29 08:00:00",
+          "temperature": 2.5,
+          "cloudCover": 3,
+          "precipitationAmount": 2,
+          "precipitationType": 2
+        },
+        {
+          "forecastStart": "2024-11-29 09:00:00",
+          "temperature": 2.0,
+          "cloudCover": 4,
+          "precipitationAmount": 3,
+          "precipitationType": 3
+        },
+        {
+          "forecastStart": "2024-11-29 10:00:00",
+          "temperature": 2.5,
+          "cloudCover": 3,
+          "precipitationAmount": 2,
+          "precipitationType": 2
+        },
+        {
+          "forecastStart": "2024-11-29 11:00:00",
+          "temperature": 3.0,
+          "cloudCover": 2,
+          "precipitationAmount": 1,
+          "precipitationType": 1
+        },
+        {
+          "forecastStart": "2024-11-29 12:00:00",
+          "temperature": 3.5,
+          "cloudCover": 1,
+          "precipitationAmount": 0,
+          "precipitationType": 0
+        },
+        {
+          "forecastStart": "2024-11-29 13:00:00",
+          "temperature": 4.0,
+          "cloudCover": 0,
+          "precipitationAmount": 0,
+          "precipitationType": 0
+        },
+        {
+          "forecastStart": "2024-11-29 14:00:00",
+          "temperature": 4.5,
+          "cloudCover": 1,
+          "precipitationAmount": 0,
+          "precipitationType": 0
+        },
+        {
+          "forecastStart": "2024-11-29 15:00:00",
+          "temperature": 5.0,
+          "cloudCover": 2,
+          "precipitationAmount": 1,
+          "precipitationType": 1
+        },
+        {
+          "forecastStart": "2024-11-29 16:00:00",
+          "temperature": 5.5,
+          "cloudCover": 3,
+          "precipitationAmount": 2,
+          "precipitationType": 2
+        },
+        {
+          "forecastStart": "2024-11-29 17:00:00",
+          "temperature": 6.0,
+          "cloudCover": 4,
+          "precipitationAmount": 3,
+          "precipitationType": 3
+        },
+        {
+          "forecastStart": "2024-11-29 18:00:00",
+          "temperature": 5.5,
+          "cloudCover": 3,
+          "precipitationAmount": 2,
+          "precipitationType": 2
+        },
+        {
+          "forecastStart": "2024-11-29 19:00:00",
+          "temperature": 5.0,
+          "cloudCover": 2,
+          "precipitationAmount": 1,
+          "precipitationType": 1
+        },
+        {
+          "forecastStart": "2024-11-29 20:00:00",
+          "temperature": 4.5,
+          "cloudCover": 1,
+          "precipitationAmount": 0,
+          "precipitationType": 0
+        },
+        {
+          "forecastStart": "2024-11-29 21:00:00",
+          "temperature": 4.0,
+          "cloudCover": 0,
+          "precipitationAmount": 0,
+          "precipitationType": 0
+        },
+        {
+          "forecastStart": "2024-11-29 22:00:00",
+          "temperature": 3.5,
+          "cloudCover": 1,
+          "precipitationAmount": 0,
+          "precipitationType": 0
+        },
+        {
+          "forecastStart": "2024-11-29 23:00:00",
+          "temperature": 3.0,
+          "cloudCover": 2,
+          "precipitationAmount": 1,
+          "precipitationType": 1
+        }
+      ]
+    }
+}
