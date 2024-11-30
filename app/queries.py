@@ -9,7 +9,7 @@ class Queries:
 
     def generate_unique_id(self):
         while True:
-            new_id = randint(10000000, 99999999)
+            new_id = randint(10000001, 99999999)
             sql = "SELECT id FROM user_credentials WHERE id = :id"
             result = self.db.conn.session.execute(text(sql), {'id': new_id}).fetchone()
             if not result:
@@ -113,6 +113,11 @@ class Queries:
         result = self.db.conn.session.execute(text(sql)).fetchall()
         return [{'id': row.id, 'postal_code': row.postal_code, 'name': row.name} for row in result]
     
+    def get_postal_area_id_by_code(self, postal_code):
+        sql = "SELECT id FROM postal_areas WHERE postal_code = :postal_code"
+        result = self.db.conn.session.execute(text(sql), {'postal_code': postal_code}).fetchone()
+        return result.id if result else None
+    
     def get_observations(self, tier, start_time, end_time, postal_code=None):
         sql = """
         SELECT o.*, pa.postal_code, uc.username FROM observations o
@@ -143,4 +148,60 @@ class Queries:
     def delete_observation(self, observation_id):
         sql = "DELETE FROM observations WHERE id = :id"
         self.db.conn.session.execute(text(sql), {'id': observation_id})
+        self.db.conn.session.commit()
+
+    def add_forecast(self, user_id, postal_area_id, forecast_data):
+        for forecast in forecast_data:
+            existing_forecast = self.get_forecast(user_id, postal_area_id, forecast['forecast_time'], forecast['analysis_time'])
+            if existing_forecast:
+                self.update_forecast(user_id, postal_area_id, forecast)
+            else:
+                sql_insert = """
+                INSERT INTO forecasts (user_id, postal_area_id, temperature, cloudiness, precipitation_amount, precipitation_type, forecast_time, analysis_time)
+                VALUES (:user_id, :postal_area_id, :temperature, :cloudiness, :precipitation_amount, :precipitation_type, :forecast_time, :analysis_time)
+                """
+                self.db.conn.session.execute(text(sql_insert), {
+                    'user_id': user_id,
+                    'postal_area_id': postal_area_id,
+                    'temperature': forecast['temperature'],
+                    'cloudiness': forecast['cloudiness'],
+                    'precipitation_amount': forecast['precipitation_amount'],
+                    'precipitation_type': forecast['precipitation_type'],
+                    'forecast_time': forecast['forecast_time'],
+                    'analysis_time': forecast['analysis_time']
+                })
+        self.db.conn.session.commit()
+
+    def get_forecast(self, user_id, postal_area_id, forecast_time, analysis_time):
+        sql = """
+        SELECT id FROM forecasts
+        WHERE user_id = :user_id AND postal_area_id = :postal_area_id
+        AND forecast_time = :forecast_time AND analysis_time = :analysis_time
+        """
+        result = self.db.conn.session.execute(text(sql), {
+            'user_id': user_id,
+            'postal_area_id': postal_area_id,
+            'forecast_time': forecast_time,
+            'analysis_time': analysis_time
+        }).fetchone()
+        return result
+
+    def update_forecast(self, user_id, postal_area_id, forecast):
+        sql_update = """
+        UPDATE forecasts
+        SET temperature = :temperature, cloudiness = :cloudiness,
+            precipitation_amount = :precipitation_amount, precipitation_type = :precipitation_type
+        WHERE user_id = :user_id AND postal_area_id = :postal_area_id
+        AND forecast_time = :forecast_time AND analysis_time = :analysis_time
+        """
+        self.db.conn.session.execute(text(sql_update), {
+            'user_id': user_id,
+            'postal_area_id': postal_area_id,
+            'temperature': forecast['temperature'],
+            'cloudiness': forecast['cloudiness'],
+            'precipitation_amount': forecast['precipitation_amount'],
+            'precipitation_type': forecast['precipitation_type'],
+            'forecast_time': forecast['forecast_time'],
+            'analysis_time': forecast['analysis_time']
+        })
         self.db.conn.session.commit()

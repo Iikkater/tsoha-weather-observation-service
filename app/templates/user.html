@@ -52,6 +52,24 @@
     </form>
     {% endif %}
 
+    {% if session.tier == 'admin' or session.tier == 'meteorologist' %}
+    <h3>Lataa ennustetiedosto</h3>
+    {% with messages = get_flashed_messages(category_filter="upload_forecast") %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}    
+    <form action="/upload_forecast" method="post" enctype="multipart/form-data">
+        <label for="forecast_file">Ennustetiedosto (.json):</label>
+        <input type="file" id="forecast_file" name="forecast_file" accept=".json" required><br><br>
+        <input type="submit" value="Lataa ennuste">
+    </form>
+    {% endif %}
+
     <a href="{{ url_for('logout') }}" class="button button-red">Kirjaudu ulos</a>
 </body>
 </html>

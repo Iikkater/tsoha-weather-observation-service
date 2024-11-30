@@ -9,6 +9,7 @@ from import_postal_areas import import_postal_areas
 from check_data import check_observation_data
 import pytz
 from stats import calculate_statistics
+from loader import load_forecast
 
 # Load environment variables from .env file
 load_dotenv()
@@ -206,5 +207,52 @@ def delete_observation():
     flash("Havainto poistettu onnistuneesti.", "delete_observation")
     return redirect(url_for("user"))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route("/upload_forecast", methods=["POST"])
+def upload_forecast():
+    if "username" not in session or session["tier"] not in ["admin", "meteorologist"]:
+        flash("Sinulla ei ole oikeuksia ladata ennustetiedostoja.", "upload_forecast")
+        return redirect(url_for("user"))
+
+    if 'forecast_file' not in request.files:
+        flash("Ennustetiedostoa ei löytynyt.", "upload_forecast")
+        return redirect(url_for("user"))
+
+    file = request.files['forecast_file']
+    if file.filename == '':
+        flash("Ennustetiedostoa ei valittu.", "upload_forecast")
+        return redirect(url_for("user"))
+
+    if file and file.filename.endswith('.json'):
+        uploads_dir = os.path.join(app.instance_path, 'uploads')
+        os.makedirs(uploads_dir, exist_ok=True)
+        file_path = os.path.join(uploads_dir, file.filename)
+        file.save(file_path)
+        forecast_data = load_forecast(file_path)
+
+        # Tarkista datan oikeellisuus
+        errors = []
+        for forecast in forecast_data:
+            forecast_errors = check_observation_data(
+                forecast['temperature'],
+                forecast['cloudiness'],
+                forecast['precipitation_amount'],
+                forecast['precipitation_type']
+            )
+            if forecast_errors:
+                errors.append(f"Virhe ennustetunnilla {forecast['forecast_time']}: {', '.join(forecast_errors)}")
+        
+        if errors:
+            for error in errors:
+                flash(error, "upload_forecast")
+            os.remove(file_path)
+            return redirect(url_for("user"))
+
+        user_id = session.get("user_id")
+        postal_area_id = queries.get_postal_area_id_by_code(forecast_data[0]['postal_code'])
+        queries.add_forecast(user_id, postal_area_id, forecast_data)
+        os.remove(file_path)
+        flash("Ennustetiedosto ladattu onnistuneesti.", "upload_forecast")
+    else:
+        flash("Väärä tiedostomuoto. Vain .json-tiedostot ovat sallittuja.", "upload_forecast")
+
+    return redirect(url_for("user"))

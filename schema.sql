@@ -4,11 +4,11 @@ SET ROLE wos_app;
 -- Drop existing tables if they exist
 -- DROP TABLE IF EXISTS user_credentials CASCADE;
 -- DROP TABLE IF EXISTS user_details CASCADE;
-DROP TABLE IF EXISTS parameters CASCADE;
-DROP TABLE IF EXISTS regions CASCADE;
-DROP TABLE IF EXISTS municipalities CASCADE;
-DROP TABLE IF EXISTS postal_areas CASCADE;
-DROP TABLE IF EXISTS observations CASCADE;
+-- DROP TABLE IF EXISTS parameters CASCADE;
+-- DROP TABLE IF EXISTS regions CASCADE;
+-- DROP TABLE IF EXISTS municipalities CASCADE;
+-- DROP TABLE IF EXISTS postal_areas CASCADE;
+-- DROP TABLE IF EXISTS observations CASCADE;
 
 -- Create user_credentials table
 CREATE TABLE user_credentials (
@@ -77,6 +77,18 @@ CREATE TABLE observations (
     observation_time TIMESTAMP WITH TIME ZONE NOT NULL
 );
 
+CREATE TABLE forecasts (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES user_credentials(id) ON DELETE CASCADE,
+    postal_area_id INTEGER REFERENCES postal_areas(id) ON DELETE CASCADE,
+    temperature FLOAT,
+    cloudiness INTEGER,
+    precipitation_amount INTEGER,
+    precipitation_type INTEGER,
+    forecast_time TIMESTAMP WITH TIME ZONE NOT NULL,
+    analysis_time TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
 -- Create indexes
 CREATE INDEX idx_user_credentials_username ON user_credentials(username);
 CREATE INDEX idx_user_details_email ON user_details(email);
@@ -84,3 +96,6 @@ CREATE INDEX idx_postal_areas_postal_code ON postal_areas(postal_code);
 CREATE INDEX idx_observations_user_id ON observations(user_id);
 CREATE INDEX idx_observations_postal_area_id ON observations(postal_area_id);
 CREATE INDEX idx_observations_observation_time ON observations(observation_time);
+CREATE INDEX idx_forecasts_user_id ON forecasts(user_id);
+CREATE INDEX idx_forecasts_postal_area_id ON forecasts(postal_area_id);
+CREATE INDEX idx_forecasts_forecast_time ON forecasts(forecast_time);
