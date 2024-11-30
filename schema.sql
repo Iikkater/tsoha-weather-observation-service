@@ -1,6 +1,7 @@
 -- Set role to wos_app
 SET ROLE wos_app;
 
+-- Kommentoituna testausta varten, helpottaa kannan resetointia
 -- Drop existing tables if they exist
 -- DROP TABLE IF EXISTS user_credentials CASCADE;
 -- DROP TABLE IF EXISTS user_details CASCADE;
