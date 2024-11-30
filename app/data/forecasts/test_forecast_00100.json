@@ -10,7 +10,7 @@
       "hours": [
         {
           "forecastStart": "2024-11-29 00:00:00",
-          "temperature": 100,
+          "temperature": 6,
           "cloudCover": 1,
           "precipitationAmount": 0,
           "precipitationType": 0
@@ -25,7 +25,7 @@
         {
           "forecastStart": "2024-11-29 02:00:00",
           "temperature": 5.2,
-          "cloudCover": 0,
+          "cloudCover": 1,
           "precipitationAmount": 1,
           "precipitationType": 1
         },
