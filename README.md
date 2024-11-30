@@ -125,8 +125,8 @@ Syötetyille sääparametreille (havainnot ja ennusteet) tehdään laaduntarkast
         ```
 
         ```sql
-        INSERT INTO user_credentials (username, password, tier) VALUES ('admin', '<kryptattu_salasana>', 'admin');
-        INSERT INTO user_details (user_id, firstname, surname, email) VALUES ((SELECT id FROM user_credentials WHERE username = 'admin'), 'Admin', 'User', 'admin@example.com');
+        INSERT INTO user_credentials (id, username, password, tier) VALUES (10000000, 'admin', '<kryptattu_salasana>', 'admin');
+        INSERT INTO user_details (user_id, firstname, surname, email) VALUES (10000000, 'Admin', 'User', 'admin@example.com');
         ```
 
         Varmista lisäys:
