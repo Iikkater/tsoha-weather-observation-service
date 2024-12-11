@@ -13,7 +13,7 @@ SET ROLE wos_app;
 
 -- Create user_credentials table
 CREATE TABLE user_credentials (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(200) NOT NULL,
     tier VARCHAR(20) DEFAULT 'basic' NOT NULL
@@ -21,8 +21,7 @@ CREATE TABLE user_credentials (
 
 -- Create user_details table
 CREATE TABLE user_details (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES user_credentials(id) ON DELETE CASCADE,
+    user_id INTEGER PRIMARY KEY REFERENCES user_credentials(id) ON DELETE CASCADE,
     firstname VARCHAR(50) NOT NULL,
     surname VARCHAR(50) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL
