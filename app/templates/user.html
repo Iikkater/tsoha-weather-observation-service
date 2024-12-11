@@ -25,7 +25,8 @@
         {% endif %}
     {% endwith %}
     <h3>Muuta käyttäjätasoa</h3>
-    <form action="/change_tier" method="post">
+    <form method="POST" action="{{ url_for('change_tier') }}">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         <label for="username">Käyttäjätunnus:</label>
         <div style="position: relative; width: 15em;">
             <input type="text" id="username" name="username" oninput="fetchUsers(this.value)" required style="width: 100%;">
@@ -42,7 +43,8 @@
     </form>
 
     <h3>Poista havainto</h3>
-    <form action="/delete_observation" method="post">
+    <form method="POST" action="{{ url_for('delete_observation') }}">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         <label for="observation_id">Havainnon ID:</label>
         <div style="position: relative; width: 15em;">
             <input type="text" id="observation_id" name="observation_id" oninput="fetchObservations(this.value)" required style="width: 100%;">
@@ -63,7 +65,8 @@
             </ul>
         {% endif %}
     {% endwith %}    
-    <form action="/upload_forecast" method="post" enctype="multipart/form-data">
+    <form method="POST" action="{{ url_for('upload_forecast') }}" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         <label for="forecast_file">Ennustetiedosto (.json):</label>
         <input type="file" id="forecast_file" name="forecast_file" accept=".json" required><br><br>
         <input type="submit" value="Lataa ennuste">

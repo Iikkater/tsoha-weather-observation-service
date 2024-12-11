@@ -1,6 +1,6 @@
 import os
 from datetime import datetime, timezone
-from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, abort
 from dotenv import load_dotenv
 from crypt import verify_password
 from db import Database
@@ -10,6 +10,7 @@ from check_data import check_observation_data
 import pytz
 from stats import calculate_statistics
 from loader import load_forecast
+import secrets
 
 # Load environment variables from .env file
 load_dotenv()
@@ -42,6 +43,7 @@ def login():
             session["username"] = found_user['username']
             session["tier"] = found_user['tier']
             session["user_id"] = found_user['id']
+            session["csrf_token"] = secrets.token_hex(16) # Add CSRF token to session
             return redirect(url_for("user"))
         
         if found_user and found_user['tier'] == 'locked':
@@ -55,6 +57,9 @@ def login():
 @app.route("/create_account", methods=["GET", "POST"])
 def create_account():
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+
         firstname = request.form["firstname"]
         surname = request.form["surname"]
         email = request.form["email"]
@@ -94,6 +99,9 @@ def logout():
 
 @app.route("/change_tier", methods=["POST"])
 def change_tier():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+
     if "username" not in session or session["tier"] != "admin":
         flash("Sinulla ei ole oikeuksia muuttaa käyttäjätasoja.", "change_tier")
         return redirect(url_for("user"))
@@ -124,6 +132,9 @@ def search_users():
 @app.route("/user/add_observation", methods=["GET", "POST"])
 def add_observation():
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+
         user_id = session.get("user_id")
         postal_area_id = request.form["postal_area_id"]
         temperature = request.form.get("temperature", type=float)
@@ -154,6 +165,9 @@ def find_data():
         return redirect(url_for("login"))
 
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+
         tier = session.get("tier")
         start_date_str = request.form["start_date"]
         start_time_str = request.form.get("start_time", "00:00")
@@ -198,6 +212,9 @@ def search_observations():
 
 @app.route("/delete_observation", methods=["POST"])
 def delete_observation():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+
     if "username" not in session or session["tier"] != "admin":
         flash("Sinulla ei ole oikeuksia poistaa havaintoja.", "delete_observation")
         return redirect(url_for("user"))
@@ -209,6 +226,9 @@ def delete_observation():
 
 @app.route("/upload_forecast", methods=["POST"])
 def upload_forecast():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+
     if "username" not in session or session["tier"] not in ["admin", "meteorologist"]:
         flash("Sinulla ei ole oikeuksia ladata ennustetiedostoja.", "upload_forecast")
         return redirect(url_for("user"))

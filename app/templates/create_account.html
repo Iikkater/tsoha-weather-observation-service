@@ -8,7 +8,8 @@
 </head>
 <body>
     <h2>Luo käyttäjätunnus</h2>
-    <form action="/create_account" method="post">
+    <form method="POST" action="{{ url_for('create_account') }}">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         <label for="firstname">Etunimi:</label>
         <input type="text" id="firstname" name="firstname" required><br><br>
         <label for="surname">Sukunimi:</label>

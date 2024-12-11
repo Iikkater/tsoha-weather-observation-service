@@ -23,6 +23,7 @@
         {% endif %}
     {% endwith %}
     <form method="POST" action="{{ url_for('find_data') }}">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         <label for="start_date">Alkupäivämäärä:</label>
         <input type="text" name="start_date" id="start_date" placeholder="dd-mm-yyyy" required>
         <br>
