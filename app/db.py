@@ -1,5 +1,6 @@
 import os
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import text
 
 class Database:
     def __init__(self):
@@ -14,3 +15,24 @@ class Database:
         app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{self.db_user}:{self.db_password}@{self.db_host}:{self.db_port}/{self.db_name}'
         app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
         self.conn = SQLAlchemy(app)
+
+    def check_connection(self):
+        try:
+            self.conn.session.execute(text('SELECT 1'))
+            return True, ""
+        except Exception as e:
+            print(f"Error checking database connection: {e}")
+            return False, "Tietokantayhteyttä ei voitu muodostaa, tarkista yhteysasetukset ja -parametrit"
+
+    def check_tables(self):
+        try:
+            required_tables = [
+                'user_credentials', 'user_details', 'parameters', 'regions', 
+                'municipalities', 'postal_areas', 'observations', 'forecasts'
+            ]
+            for table in required_tables:
+                self.conn.session.execute(text(f'SELECT 1 FROM {table} LIMIT 1'))
+            return True, ""
+        except Exception as e:
+            print(f"Error checking database tables: {e}")
+            return False, "Tietokannan schema ei oikein, tarvittavia tauluja ei löytynyt"

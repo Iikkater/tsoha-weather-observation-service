@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <title>Säähavaintojärjestelmä</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const errorMessage = "{{ get_flashed_messages(category_filter=['error'])[0] if get_flashed_messages(category_filter=['error']) else '' }}";
+            if (errorMessage) {
+                alert(errorMessage);
+            }
+        });
+    </script>
 </head>
 <body>
     <h1>Tervetuloa säähavaintojärjestelmän etusivulle!</h1>

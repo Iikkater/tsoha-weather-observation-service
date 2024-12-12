@@ -29,6 +29,13 @@ if not import_postal_areas(csv_file_path):
 
 @app.route("/")
 def index():
+    connection_ok, connection_error = db.check_connection()
+    if not connection_ok:
+        flash(connection_error, 'error')
+    else:
+        tables_ok, tables_error = db.check_tables()
+        if not tables_ok:
+            flash(tables_error, 'error')
     return render_template("index.html")
 
 @app.route("/login", methods=["GET", "POST"])
