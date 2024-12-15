@@ -1,8 +1,39 @@
 body {
+    background-image: url('background.png');
+    background-size: auto;
+    background-repeat: repeat-x;
+    background-position: left top;
+    background-color: #ffffff;
     font-family: Verdana, Tahoma, sans-serif;
-    background-color: #f0f0f0;
+    color: #000000;
     margin: 1em;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Varmistetaan, että sivu täyttää vähintään koko näkymän korkeuden */
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(0.625em);
+    padding: 2em;
+    border-radius: 0.625em;
+    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 1em;
+    width: 35em;
+}
+
+.sheet-container {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(0.625em);
+    padding: 2em;
+    border-radius: 0.625em;
+    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 1em;
+    width: 60em;
 }
 
 h1 {
@@ -50,7 +81,10 @@ label {
     position: absolute;
     background-color: white;
     z-index: 1000;
-    width: 100%;
+    width: 11em; /* Asetetaan suggestions-elementin leveys */
+    left: 50%; /* Keskitetään suggestions-elementti */
+    transform: translateX(-50%); /* Keskitetään suggestions-elementti */
+    box-sizing: border-box; /* Sisällytetään padding ja border elementin kokoon */
 }
 
 .suggestion-item {
@@ -144,4 +178,18 @@ tr:nth-child(even) {
 
 tr:hover {
     background-color: #f1f1f1;
+}
+
+ul {
+    list-style-position: inside;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+li {
+    margin-bottom: 0.5em;
+    display: list-item;
+    text-align: left;
 }

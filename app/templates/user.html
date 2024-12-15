@@ -7,72 +7,83 @@
     <script src="{{ url_for('static', filename='autofill.js') }}"></script>
 </head>
 <body>
-    <p>Olet kirjautunut sisään nimellä {{ session.username }} ({{ session.tier }})</p>
+    <div class="container">
+        <h2>Tervetuloa {{ session.username }}!</h2>
+        <p>Käyttäjätasosi on {{ session.tier }}</p>
+    </div>
 
-    <a href="{{ url_for('add_observation') }}" class="button button-green">Lisää havainto</a>
-
-    <a href="{{ url_for('find_data') }}" class="button button-blue">Hae dataa</a>
+    <div class="container">
+        <h2>Käyttäjätoiminnot</h2>
+        <a href="{{ url_for('add_observation') }}" class="button-green">Lisää havainto</a>
+        <a href="{{ url_for('find_data') }}" class="button-blue">Hae dataa</a>
+        <a href="{{ url_for('logout') }}" class="button-red">Kirjaudu ulos</a>
+    </div>
 
     {% if session.tier == 'admin' %}
-    <h2>Admin-toiminnot</h2>
-    {% with messages = get_flashed_messages(category_filter=["change_tier", "delete_observation"]) %}
-        {% if messages %}
-            <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-    <h3>Muuta käyttäjätasoa</h3>
-    <form method="POST" action="{{ url_for('change_tier') }}">
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        <label for="username">Käyttäjätunnus:</label>
-        <div style="position: relative; width: 15em;">
-            <input type="text" id="username" name="username" oninput="fetchUsers(this.value)" required style="width: 100%;">
-            <div id="suggestions" class="suggestions"></div>
-        </div><br><br>
-        <label for="tier">Taso:</label>
-        <select id="tier" name="tier" required>
-            <option value="basic">Basic</option>
-            <option value="meteorologist">Meteotologi</option>
-            <option value="admin">Admin</option>
-            <option value="locked">Lukittu</option>
-        </select><br><br>
-        <input type="submit" value="Muuta käyttäjätasoa">
-    </form>
+        {% with messages = get_flashed_messages(category_filter=["change_tier", "delete_observation"]) %}
+            {% if messages %}
+                <div class="container">
+                    <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
+        <div class="container">
+            <h2>Admin-toiminnot</h2>
+            <h3>Muuta käyttäjätasoa</h3>
+            <form method="POST" action="{{ url_for('change_tier') }}">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                <label for="username">Käyttäjätunnus:</label>
+                <input type="text" id="username" name="username" oninput="fetchUsers(this.value)" required>
+                <div id="suggestions" class="suggestions"></div>
+                <label for="tier">Taso:</label>
+                <select id="tier" name="tier" required>
+                    <option value="basic">Basic</option>
+                    <option value="meteorologist">Meteotologi</option>
+                    <option value="admin">Admin</option>
+                    <option value="locked">Lukittu</option>
+                </select><br><br>
+                <input type="submit" value="Muuta käyttäjätasoa" class="button-green">
+            </form>
 
-    <h3>Poista havainto</h3>
-    <form method="POST" action="{{ url_for('delete_observation') }}">
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        <label for="observation_id">Havainnon ID:</label>
-        <div style="position: relative; width: 15em;">
-            <input type="text" id="observation_id" name="observation_id" oninput="fetchObservations(this.value)" required style="width: 100%;">
-            <div id="observation-suggestions" class="suggestions"></div>
-        </div><br><br>
-        <input type="submit" value="Poista havainto">
-    </form>
+            <h3>Poista havainto</h3>
+            <form method="POST" action="{{ url_for('delete_observation') }}">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                <label for="observation_id">Havainnon ID:</label>
+                <div style="position: relative;">
+                    <input type="text" id="observation_id" name="observation_id" oninput="fetchObservations(this.value)" required>
+                    <div id="observation-suggestions" class="suggestions"></div>
+                </div><br><br>
+                <input type="submit" value="Poista havainto" class="button-red">
+            </form>
+        </div>
     {% endif %}
 
     {% if session.tier == 'admin' or session.tier == 'meteorologist' %}
-    <h3>Lataa ennustetiedosto</h3>
-    {% with messages = get_flashed_messages(category_filter="upload_forecast") %}
-        {% if messages %}
-            <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}    
-    <form method="POST" action="{{ url_for('upload_forecast') }}" enctype="multipart/form-data">
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        <label for="forecast_file">Ennustetiedosto (.json):</label>
-        <input type="file" id="forecast_file" name="forecast_file" accept=".json" required><br><br>
-        <input type="submit" value="Lataa ennuste">
-    </form>
+        {% with messages = get_flashed_messages(category_filter="upload_forecast") %}
+            {% if messages %}
+                <div class="container">
+                    <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
+        <div class="container">
+            <h2>Meteorologin toiminnot</h2>
+            <h3>Lataa ennustetiedosto</h3>
+            <form method="POST" action="{{ url_for('upload_forecast') }}" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                <label for="forecast_file">Ennustetiedosto (.json):</label>
+                <input type="file" id="forecast_file" name="forecast_file" accept=".json" required><br><br>
+                <input type="submit" value="Lataa ennuste" class="button-green">
+            </form>
+        </div>
     {% endif %}
-
-    <a href="{{ url_for('logout') }}" class="button button-red">Kirjaudu ulos</a>
 </body>
 </html>

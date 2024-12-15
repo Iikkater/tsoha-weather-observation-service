@@ -7,23 +7,28 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h2>Kirjaudu sisään</h2>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-            </ul>
+            <div class="container">
+                <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            </div>
         {% endif %}
     {% endwith %}
-    <form method="POST" action="{{ url_for('login') }}">
-        <label for="username">Käyttäjätunnus:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        <label for="password">Salasana:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        <input type="submit" value="Login">
-    </form>
-    <p>Eikö sinulla ole tiliä? <a href="/create_account">Luo tili</a></p>
+    <div class="container">
+        <h2>Kirjaudu sisään</h2>
+        <form method="POST" action="{{ url_for('login') }}">
+            <label for="username">Käyttäjätunnus:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="password">Salasana:</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <input type="submit" value="Kirjaudu sisään" class="button-green">
+        </form>
+        <p>Eikö sinulla ole tiliä?</p>
+        <a href="/create_account" class="button-blue">Luo tili</a>
+    </div>
 </body>
 </html>

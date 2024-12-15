@@ -6,41 +6,78 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <a href="{{ url_for('user') }}" class="button button-blue">Takaisin kotisivulle</a>
-    <h1>Lisää havainto</h1>
+    <div class="container">
+        <a href="{{ url_for('user') }}" class="button button-blue">Takaisin kotisivulle</a>
+    </div>
+    <div class="container">
+        <h2>Ohjeet sääparametrien ilmoittamiseen</h2>
+        <br>
+        <p><strong>Lämpötila:</strong> Celsius-asteina</p>
+        <br>
+        <p><strong>Pilvisyys:</strong></p>
+        <ul>
+            <li>Selkeää (0)</li>
+            <li>Melko selkeää (1)</li>
+            <li>Puolipilvistä (2)</li>
+            <li>Melko pilvistä (3)</li>
+            <li>Pilvistä (4)</li>
+        </ul>
+        <p><a href="https://www.ilmatieteenlaitos.fi/pilvisyys" target="_blank">Lisätietoja pilvisyydestä</a></p>
+        <br>
+        <p><strong>Sateen voimakkuus:</strong></p>
+        <ul>
+            <li>Ei sadetta/poutaa (0)</li>
+            <li>Vähäistä sadetta (1)</li>
+            <li>Sadetta (2)</li>
+            <li>Runsasta sadetta (3)</li>
+        </ul>
+        <p><a href="https://www.ilmatieteenlaitos.fi/sade" target="_blank">Lisätietoja sateesta</a></p>
+        <br>
+        <p><strong>Sateen olomuoto:</strong></p>
+        <ul>
+            <li>Pouta (0)</li>
+            <li>Tihkua (1)</li>
+            <li>Vettä (2)</li>
+            <li>Räntää (3)</li>
+            <li>Lumijyväset (4)</li>
+            <li>Lunta (5)</li>
+            <li>Rakeita (6)</li>
+        </ul>
+        <p><a href="https://www.ilmatieteenlaitos.fi/sateen-olomuodot" target="_blank">Lisätietoja olomuodosta</a></p>
+    </div>
     {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-    <form method="POST" action="{{ url_for('add_observation') }}">
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        <label for="postal_area_id">Postinumeroalue:</label>
-        <select name="postal_area_id" id="postal_area_id">
-            {% for postal_area in postal_areas %}
-                <option value="{{ postal_area.id }}" {% if postal_area.id == default_postal_area_id %}selected{% endif %}>
-                    {{ postal_area.postal_code }} - {{ postal_area.name }}
-                </option>
-            {% endfor %}
-        </select>
-        <br>
-        <label for="temperature">Lämpötila (°C):</label>
-        <input type="number" step="0.1" name="temperature" id="temperature">
-        <br>
-        <label for="cloudiness">Pilvisyys (0-4):</label>
-        <input type="number" name="cloudiness" id="cloudiness" min="0" max="4" value="0" required>
-        <br>
-        <label for="precipitation_amount">Sateen määrä (0-3):</label>
-        <input type="number" name="precipitation_amount" id="precipitation_amount" min="0" max="3" value="0" required>
-        <br>
-        <label for="precipitation_type">Sateen tyyppi (0-6):</label>
-        <input type="number" name="precipitation_type" id="precipitation_type" min="0" max="6" value="0" required>
-        <br>
-        <input type="submit" value="Lisää havainto" class="button-green">
-    </form>
+            {% if messages %}
+            <div class="container">
+                <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        {% endwith %}
+    <div class="container">
+        <h1>Lisää havainto</h1>
+        <form method="POST" action="{{ url_for('add_observation') }}">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            <label for="postal_area_id">Postinumeroalue:</label>
+            <select name="postal_area_id" id="postal_area_id">
+                {% for postal_area in postal_areas %}
+                    <option value="{{ postal_area.id }}" {% if postal_area.id == default_postal_area_id %}selected{% endif %}>
+                        {{ postal_area.postal_code }} - {{ postal_area.name }}
+                    </option>
+                {% endfor %}
+            </select><br><br>
+            <label for="temperature">Lämpötila (°C):</label>
+            <input type="number" step="0.1" name="temperature" id="temperature"><br><br>
+            <label for="cloudiness">Pilvisyys (0-4):</label>
+            <input type="number" name="cloudiness" id="cloudiness" min="0" max="4" value="0" required><br><br>
+            <label for="precipitation_amount">Sateen määrä (0-3):</label>
+            <input type="number" name="precipitation_amount" id="precipitation_amount" min="0" max="3" value="0" required><br><br>
+            <label for="precipitation_type">Sateen tyyppi (0-6):</label>
+            <input type="number" name="precipitation_type" id="precipitation_type" min="0" max="6" value="0" required><br><br>
+            <input type="submit" value="Lisää havainto" class="button-green">
+        </form>
+    </div>
 </body>
 </html>
