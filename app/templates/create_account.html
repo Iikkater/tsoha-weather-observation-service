@@ -17,14 +17,20 @@
         <label for="email">Sähköposti:</label>
         <input type="email" id="email" name="email" required><br><br>
         <label for="postal_code">Kotipostinumero:</label>
-        <input type="text" id="postal_code" name="postal_code" required><br><br>
+        <select name="postal_code" id="postal_code">
+            {% for postal_area in postal_areas %}
+                <option value="{{ postal_area.postal_code }}">
+                    {{ postal_area.postal_code }} - {{ postal_area.name }}
+                </option>
+            {% endfor %}
+        </select>
         <label for="username">Käyttäjätunnus:</label>
         <input type="text" id="username" name="username" required><br><br>
         <label for="password">Salasana:</label>
         <input type="password" id="password" name="password" required><br><br>
         <label for="retype_password">Salasana uudelleen:</label>
         <input type="password" id="retype_password" name="retype_password" required><br><br>
-        <input type="submit" value="Luo käyttäjätunnus">
+        <input type="submit" value="Luo käyttäjätunnus" class="button-green">
     </form>
 </body>
 </html>

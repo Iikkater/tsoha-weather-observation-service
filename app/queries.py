@@ -45,6 +45,18 @@ class Queries:
                 'email': result.email
             }
         return None
+    
+    def get_user_details(self, user_id):
+        sql = "SELECT firstname, surname, email, postal_code FROM user_details WHERE user_id = :user_id"
+        result = self.db.conn.session.execute(text(sql), {'user_id': user_id}).fetchone()
+        if result:
+            return {
+                'firstname': result.firstname,
+                'surname': result.surname,
+                'email': result.email,
+                'postal_code': result.postal_code
+            }
+        return None
 
     def update_user_tier(self, username, new_tier):
         sql = "UPDATE user_credentials SET tier = :tier WHERE username = :username"
@@ -112,6 +124,8 @@ class Queries:
         sql = "SELECT id, postal_code, name FROM postal_areas"
         result = self.db.conn.session.execute(text(sql)).fetchall()
         return [{'id': row.id, 'postal_code': row.postal_code, 'name': row.name} for row in result]
+    
+
     
     def get_postal_area_id_by_code(self, postal_code):
         sql = "SELECT id FROM postal_areas WHERE postal_code = :postal_code"

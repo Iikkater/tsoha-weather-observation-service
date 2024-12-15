@@ -90,8 +90,9 @@ def create_account():
 
         return redirect(url_for("login"))
     
+    postal_areas = queries.get_postal_areas()
     session["csrf_token"] = secrets.token_hex(16)
-    return render_template("create_account.html")
+    return render_template("create_account.html", postal_areas=postal_areas)
 
 @app.route("/user")
 def user():
@@ -141,6 +142,9 @@ def search_users():
 
 @app.route("/user/add_observation", methods=["GET", "POST"])
 def add_observation():
+    if "username" not in session:
+        return redirect(url_for("login"))
+
     if request.method == "POST":
         if session["csrf_token"] != request.form["csrf_token"]:
             abort(403)
@@ -165,9 +169,18 @@ def add_observation():
         flash("Havainto lisätty onnistuneesti.")
         return redirect(url_for("add_observation"))
 
-    parameters = queries.get_parameters()
+    user_id = session.get("user_id")
+    user_details = queries.get_user_details(user_id)
     postal_areas = queries.get_postal_areas()
-    return render_template("add_observation.html", parameters=parameters, postal_areas=postal_areas)
+
+    if user_details and user_details["postal_code"]:
+        default_postal_area_id = queries.get_postal_area_id_by_code(user_details["postal_code"])
+    else:
+        default_postal_area_id = queries.get_postal_area_id_by_code("00100")
+
+    parameters = queries.get_parameters()
+    session["csrf_token"] = secrets.token_hex(16)
+    return render_template("add_observation.html", parameters=parameters, postal_areas=postal_areas, default_postal_area_id=default_postal_area_id)
 
 @app.route("/user/find_data", methods=["GET", "POST"])
 def find_data():
@@ -211,6 +224,7 @@ def find_data():
             stats = None
         return render_template("find_data.html", observations=observations, stats=stats)
 
+    session["csrf_token"] = secrets.token_hex(16)
     return render_template("find_data.html", observations=[], stats={})
 
 @app.route("/search_observations", methods=["GET"])

@@ -22,7 +22,9 @@
         <label for="postal_area_id">Postinumeroalue:</label>
         <select name="postal_area_id" id="postal_area_id">
             {% for postal_area in postal_areas %}
-                <option value="{{ postal_area.id }}">{{ postal_area.postal_code }} - {{ postal_area.name }}</option>
+                <option value="{{ postal_area.id }}" {% if postal_area.id == default_postal_area_id %}selected{% endif %}>
+                    {{ postal_area.postal_code }} - {{ postal_area.name }}
+                </option>
             {% endfor %}
         </select>
         <br>
