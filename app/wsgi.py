@@ -70,6 +70,7 @@ def create_account():
         firstname = request.form["firstname"]
         surname = request.form["surname"]
         email = request.form["email"]
+        postal_code = request.form["postal_code"]
         username = request.form["username"]
         password = request.form["password"]
         retype_password = request.form["retype_password"]
@@ -85,9 +86,11 @@ def create_account():
             flash("Käyttäjätunnus tai sähköpostiosoite on jo käytössä. Valitse toinen.")
             return redirect(url_for("create_account"))
 
-        queries.create_user(firstname, surname, email, username, password, tier)
+        queries.create_user(firstname, surname, email, username, password, tier, postal_code)
 
         return redirect(url_for("login"))
+    
+    session["csrf_token"] = secrets.token_hex(16)
     return render_template("create_account.html")
 
 @app.route("/user")

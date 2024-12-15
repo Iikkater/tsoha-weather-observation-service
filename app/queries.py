@@ -27,13 +27,13 @@ class Queries:
             }
         return None
 
-    def create_user(self, firstname, surname, email, username, password, tier):
+    def create_user(self, firstname, surname, email, username, password, tier, postal_code):
         hashed_password = hash_password(password)
         new_id = self.generate_unique_id()
         credds_sql = "INSERT INTO user_credentials (id, username, password, tier) VALUES (:id, :username, :password, :tier)"
-        details_sql = "INSERT INTO user_details (user_id, firstname, surname, email) VALUES (:user_id, :firstname, :surname, :email)"
+        details_sql = "INSERT INTO user_details (user_id, firstname, surname, email, postal_code) VALUES (:user_id, :firstname, :surname, :email, :postal_code)"
         self.db.conn.session.execute(text(credds_sql), {'id': new_id, 'username': username, 'password': hashed_password, 'tier': tier})
-        self.db.conn.session.execute(text(details_sql), {'user_id': new_id, 'firstname': firstname, 'surname': surname, 'email': email})
+        self.db.conn.session.execute(text(details_sql), {'user_id': new_id, 'firstname': firstname, 'surname': surname, 'email': email, 'postal_code': postal_code})
         self.db.conn.session.commit()
 
     def get_user_by_username_or_email(self, username, email):

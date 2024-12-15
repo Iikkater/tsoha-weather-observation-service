@@ -11,22 +11,6 @@ SET ROLE wos_app;
 -- DROP TABLE IF EXISTS postal_areas CASCADE;
 -- DROP TABLE IF EXISTS observations CASCADE;
 
--- Create user_credentials table
-CREATE TABLE user_credentials (
-    id INTEGER PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(200) NOT NULL,
-    tier VARCHAR(20) DEFAULT 'basic' NOT NULL
-);
-
--- Create user_details table
-CREATE TABLE user_details (
-    user_id INTEGER PRIMARY KEY REFERENCES user_credentials(id) ON DELETE CASCADE,
-    firstname VARCHAR(50) NOT NULL,
-    surname VARCHAR(50) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL
-);
-
 -- Create parameters table
 CREATE TABLE parameters (
     id SERIAL PRIMARY KEY,
@@ -63,6 +47,23 @@ CREATE TABLE postal_areas (
     postal_code VARCHAR(10) UNIQUE NOT NULL,
     name VARCHAR(100) NOT NULL,
     municipality_code INTEGER REFERENCES municipalities(code) ON DELETE CASCADE
+);
+
+-- Create user_credentials table
+CREATE TABLE user_credentials (
+    id INTEGER PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(200) NOT NULL,
+    tier VARCHAR(20) DEFAULT 'basic' NOT NULL
+);
+
+-- Create user_details table
+CREATE TABLE user_details (
+    user_id INTEGER PRIMARY KEY REFERENCES user_credentials(id) ON DELETE CASCADE,
+    firstname VARCHAR(50) NOT NULL,
+    surname VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    postal_code VARCHAR(10) REFERENCES postal_areas(postal_code) ON DELETE SET NULL
 );
 
 -- Create observations table
