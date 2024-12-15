@@ -68,6 +68,7 @@ Syötetyille sääparametreille (havainnot ja ennusteet) tehdään laaduntarkast
 - Sovelluksen toimintoja on hiottu
     - Ennusteita voi tarkastella palvelusta
     - Ennusteille lasketaan osuvuus havainnoista
+    - Mahdollisuus muuttaa omia käyttäjätietoja
 - Ulkoasua on paranneltu ja selkeyttä lisätty
 
 ## TESTAUS
