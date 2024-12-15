@@ -1,9 +1,9 @@
 # Säähavaintopalvelu
 ## YLEISKUVAUS
 
-Palvelu, jossa tavalliset ihmiset voivat kirjata matalalla kynnyksellä säähavaintoja sekä verrata niitä meteorologin antamaan ennusteeseen. Palvelun tarkoitus on tuotaa meteorologille dataa ennusteen osuvuudesta sekä tarjota palveun josta voi tarkastella historiatietoja menneistä havainnoista ja ennusteista. Palvelu ei ole tarkoitettu säätilan tai ennusteen reaaliaikaista tarkastekua varten.
+Palvelu, jossa tavalliset ihmiset voivat kirjata matalalla kynnyksellä säähavaintoja sekä verrata niitä meteorologin antamaan ennusteeseen. Palvelun tarkoitus on tuotaa meteorologille dataa ennusteen osuvuudesta sekä tarjota palvelun josta voi tarkastella historiatietoja menneistä havainnoista ja ennusteista. Palvelu ei ole tarkoitettu säätilan tai ennusteen reaaliaikaista tarkastekua varten.
 
-Palvelussa käyttäjä ("havainnontekijä") voi lisätä säähavaintoja Uudenmaan postinumeroalueille maksimissaan kerran tunnissa per postinumeroalue. Syötettävät sääparametrit ovat:
+Palvelussa käyttäjä voi lisätä säähavaintoja Uudenmaan postinumeroalueille maksimissaan kerran tunnissa per postinumeroalue. Syötettävät sääparametrit ovat:
 - Lämpötila (celsius)
 - Pilvisyys (selkeää, melko selkeää, puolipilvistä, melko pilvistä, pilvistä) https://www.ilmatieteenlaitos.fi/pilvisyys
 - Sateen voimakkuus (ei sadetta/poutaa, vähäistä sadetta, sadetta, runsasta sadetta) https://www.ilmatieteenlaitos.fi/sade
@@ -11,7 +11,7 @@ Palvelussa käyttäjä ("havainnontekijä") voi lisätä säähavaintoja Uudenma
   
 Pilvisyyden, sateen voimakkuuden ja -olomuodon määrittelyissä käytetään Ilmatieteen laitoksen verkkosivuilta saatavia viitearvoja. Käyttäjä näkee nämä viitearvot sekä ohjeet lisätessään havaintoa palveluun. Parametreja on tarkoituksella vähän, sillä ajatus on, että käyttäjä voi havaita ne joko suoraan silmillä tai yleisillä kotoa löytyvillä mittalaitteilla kuten lämpömittarilla.
 
-Käyttäjä voi havaintoa lisätessään syöttää manuaalisesti postinumeroaleen.
+Käyttäjä voi havaintoa lisätessään syöttää manuaalisesti postinumeroalueen. Palvelu tarjoaa käyttäjälle myös automaattisesti hänen kotipostinumeroaluettaan.
 
 Tietokantaan kirjataan jokaisesta havainnosta:
 - Havaitut sääparametrit
@@ -19,7 +19,7 @@ Tietokantaan kirjataan jokaisesta havainnosta:
 - Havainnon postinumeroalue
 - Havainnontekijä
 
-Lisäksi palvelussa on "meteorologi"-käyttäjiä, jotka voivat ladata json-muotoisen, pisimmillään 24h ennusteen 1 tunnin aikaresoluutiolla yllä mainituille sääparametreille postinumeroalueelle. Palvelussa meteorologi voi vertailla tekemänsä ennusteen ja käyttäjien kirjaamien havaintojen eroja jälkikäteen. Lisäksi meteorologi voi jälkikäteen vertailla tekemäänsä ennustetta muiden meteorologien ennusteeseen.
+Lisäksi palvelussa on "meteorologi"-käyttäjiä, jotka voivat ladata json-muotoisen, ennusteen yllä mainituille sääparametreille postinumeroalueelle. Palvelussa meteorologi voi vertailla tekemänsä ennusteen ja käyttäjien kirjaamien havaintojen eroja jälkikäteen.
 
 Tietokantaan lisätään jokaisesta ennusteesta:
 - Ennustetut sääparametrit
@@ -32,15 +32,15 @@ Kuka tahansa voi luoda tunnuksen ja kirjautua palveluun tavallisena käyttäjän
 
 ### KÄYTTÄJÄTASOT
 
-1. Palvelussa on ylläpitäjiä, jotka voivat lukita sekä tavallisia käyttäjiä, että meteorologeja pois palvelusta, mikäli nämä tuottavat selvästi virheellistä dataa tai muuten eivät käytä palvelua toivotulla tavalla. Ylläpitäjä voi muuttaa tavallisen käyttäjän meteorologi-tasolle perustellusta pyynnöstä. Ylläpitäjät voivat myös muuttaa ja poistaa havaintoja sekä ennusteita tietokannasta. Käyttäjät ja meteorologit voivat jättää ylläpitäjälle havainnon tai ennusteen poistopyyntojä.
+1. Palvelussa on ylläpitäjiä, jotka voivat lukita sekä tavallisia käyttäjiä, että meteorologeja pois palvelusta, mikäli nämä tuottavat selvästi virheellistä dataa tai muuten eivät käytä palvelua toivotulla tavalla. Ylläpitäjä voi muuttaa tavallisen käyttäjän meteorologi-tasolle perustellusta pyynnöstä. Ylläpitäjät voivat myös muuttaa ja poistaa havaintoja sekä ennusteita tietokannasta.
 
-2. Tavalliset käyttäjät ("havainnontekijät") voivat tarkastella muiden havaintoja, mutta eivät voi poistaa antamiaan havaintoja. Kullekin tunnille ja postinumeroalueelle annettua havaintoa voi kuitenkin muokata kyseisen tunnin aikana (esim. kello 12 SA havaintoa voi päivittää 12:59 SA asti). Lisäksi käyttäjät voivat tarkastella menneitä meteorologien ennusteita ja verrata niitä annettuihin havaintoihin.
+2. Tavalliset käyttäjät voivat tarkastella muiden havaintoja, mutta eivät voi poistaa antamiaan havaintoja. Kullekin tunnille ja postinumeroalueelle annettua havaintoa voi kuitenkin muokata kyseisen tunnin aikana (esim. kello 12 SA havaintoa voi päivittää 12:59 SA asti). Lisäksi käyttäjät voivat tarkastella menneitä meteorologien ennusteita ja verrata niitä annettuihin havaintoihin.
 
-3. Meteorologit voivat käyttää palveua kuten tavalliset käyttäjät. Lisäksi he voivat listätä palveluun ennusteita maksimissaan yksi ennuste per tunti per postinumeroalue. Meteorologit voivat tarkastella omia ja muiden tekemiä menneitä ennusteita, mutta eivät voi poistaa niitä. Meteorologit voivat myös tarkastella menneitä havaintoja ja verrata niitä saman ajanhetken ennusteisiin.
+3. Meteorologit voivat käyttää palveua kuten tavalliset käyttäjät. Lisäksi he voivat listätä palveluun ennusteita. Meteorologit voivat tarkastella omia ja muiden tekemiä menneitä ennusteita, mutta eivät voi poistaa niitä. Meteorologit voivat myös tarkastella menneitä havaintoja ja verrata niitä saman ajanhetken ennusteisiin.
 
 ### TEKNISET LISÄTIEDOT
 
-Sääparametrien lisäksi palvelu käyttää tietokantaa käyttäjätietojen säilömiseen sekä erinäisten tilastotietojen säilömiseen.
+Sääparametrien lisäksi palvelu käyttää tietokantaa käyttäjätietojen säilömiseen.
 
 Syötetyille sääparametreille (havainnot ja ennusteet) tehdään laaduntarkastusta niin, että selkeästi virheellisen datan pääsyä tietokantaan pyritään estämään.
 - Lämpötilan osalta minimi- ja maksimiarvot
@@ -63,6 +63,12 @@ Syötetyille sääparametreille (havainnot ja ennusteet) tehdään laaduntarkast
     - Käyttäjille omien tietojen muokkaus ja salasanan vaihto -toiminnallisuus
     - Ennustedatan ja havaitnodatan vertailu -toiminnallisuus
     - Admin tasolle mahdollisuus poistaa ennusteita tietokannasta käyttäen sovellusta.
+ 
+## LOPULLINEN PALAUTUS
+- Sovelluksen toimintoja on hiottu
+    - Ennusteita voi tarkastella palvelusta
+    - Ennusteille lasketaan osuvuus havainnoista
+- Ulkoasua on paranneltu ja selkeyttä lisätty
 
 ## TESTAUS
 
