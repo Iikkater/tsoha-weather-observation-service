@@ -187,6 +187,38 @@ def add_observation():
     session["csrf_token"] = secrets.token_hex(16)
     return render_template("add_observation.html", parameters=parameters, postal_areas=postal_areas, default_postal_area_id=default_postal_area_id)
 
+@app.route("/user/update_user", methods=["GET", "POST"])
+def update_user():
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+
+        user_id = session["user_id"]
+        firstname = request.form["firstname"]
+        surname = request.form["surname"]
+        email = request.form["email"]
+        postal_code = request.form["postal_code"]
+        password = request.form["password"]
+        retype_password = request.form["retype_password"]
+
+        if password and password != retype_password:
+            flash("Salasanat eivät täsmää. Yritä uudelleen.")
+            return redirect(url_for("update_user"))
+
+        queries.update_user_details(user_id, firstname, surname, email, postal_code, password)
+
+        flash("Käyttäjätiedot päivitetty onnistuneesti.")
+        return redirect(url_for("update_user"))
+
+    user_id = session["user_id"]
+    user = queries.get_user_details(user_id)
+    postal_areas = queries.get_postal_areas()
+    session["csrf_token"] = secrets.token_hex(16)
+    return render_template("update_user.html", user=user, postal_areas=postal_areas)
+
 @app.route("/user/find_data", methods=["GET", "POST"])
 def find_data():
     if "username" not in session:

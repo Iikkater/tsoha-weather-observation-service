@@ -68,6 +68,34 @@ class Queries:
         result = self.db.conn.session.execute(text(sql), {'query': f"{query}%"}).fetchall()
         return [{'username': row.username} for row in result]
     
+    def update_user_details(self, user_id, firstname, surname, email, postal_code, password):
+        sql_update_details = """
+        UPDATE user_details
+        SET firstname = :firstname, surname = :surname, email = :email, postal_code = :postal_code
+        WHERE user_id = :user_id
+        """
+        self.db.conn.session.execute(text(sql_update_details), {
+            'firstname': firstname,
+            'surname': surname,
+            'email': email,
+            'postal_code': postal_code,
+            'user_id': user_id
+        })
+
+        if password:
+            hashed_password = hash_password(password)
+            sql_update_password = """
+            UPDATE user_credentials
+            SET password = :password
+            WHERE id = :user_id
+            """
+            self.db.conn.session.execute(text(sql_update_password), {
+                'password': hashed_password,
+                'user_id': user_id
+            })
+
+        self.db.conn.session.commit()
+    
     def add_observation(self, user_id, postal_area_id, temperature, cloudiness, precipitation_amount, precipitation_type, observation_time):
         sql_check = """
         SELECT id FROM observations

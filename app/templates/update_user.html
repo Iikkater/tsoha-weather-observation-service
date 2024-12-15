@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muokkaa käyttäjätietoja</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('user') }}" class="button button-blue">Takaisin kotisivulle</a>
+    </div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="container">
+                <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <h2>Muokkaa käyttäjätietoja</h2>
+        <form method="POST" action="{{ url_for('update_user') }}">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            <label for="firstname">Etunimi:</label>
+            <input type="text" id="firstname" name="firstname" value="{{ user.firstname }}" required><br><br>
+            <label for="surname">Sukunimi:</label>
+            <input type="text" id="surname" name="surname" value="{{ user.surname }}" required><br><br>
+            <label for="email">Sähköposti:</label>
+            <input type="email" id="email" name="email" value="{{ user.email }}" required><br><br>
+            <label for="postal_code">Kotipostinumero:</label>
+            <select name="postal_code" id="postal_code">
+                {% for postal_area in postal_areas %}
+                    <option value="{{ postal_area.postal_code }}" {% if postal_area.postal_code == user.postal_code %}selected{% endif %}>
+                        {{ postal_area.postal_code }} - {{ postal_area.name }}
+                    </option>
+                {% endfor %}
+            </select><br><br>
+            <label for="password">Salasana:</label>
+            <input type="password" id="password" name="password"><br><br>
+            <label for="retype_password">Salasana uudelleen:</label>
+            <input type="password" id="retype_password" name="retype_password"><br><br>
+            <input type="submit" value="Päivitä tiedot" class="button button-green">
+        </form>
+    </div>
+</body>
+</html>
