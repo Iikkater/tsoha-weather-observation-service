@@ -11,6 +11,7 @@ import pytz
 from stats import calculate_statistics
 from loader import load_forecast
 import secrets
+import math
 
 # Load environment variables from .env file
 load_dotenv()
@@ -26,6 +27,10 @@ queries = Queries(db)
 csv_file_path = os.path.join('data/locations', 'Uusimaa_postal_areas.csv')
 if not import_postal_areas(csv_file_path):
     print("Error: Failed to import postal areas data.")
+
+@app.template_filter('abs')
+def abs_filter(value):
+    return abs(value)
 
 @app.route("/")
 def index():

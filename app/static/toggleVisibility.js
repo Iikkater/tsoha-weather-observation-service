@@ -34,4 +34,13 @@ $(document).ready(function() {
             $(this).text("Näytä tilastot");
         }
     });
+
+    $("#toggleAccuracyTable").click(function() {
+        $("#accuracyTable").toggle();
+        if ($("#accuracyTable").is(":visible")) {
+            $(this).text("Piilota osuvuus");
+        } else {
+            $(this).text("Näytä osuvuus");
+        }
+    });
 });

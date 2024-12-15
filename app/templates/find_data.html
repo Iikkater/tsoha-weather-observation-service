@@ -29,6 +29,42 @@
             {% endif %}
         {% endwith %}
     <div class="container">
+        <h2>Lisätiedot sääparametreista</h2>
+        <br>
+        <p><strong>Lämpötila:</strong> Celsius-asteina</p>
+        <br>
+        <p><strong>Pilvisyys:</strong></p>
+        <ul>
+            <li>Selkeää (0)</li>
+            <li>Melko selkeää (1)</li>
+            <li>Puolipilvistä (2)</li>
+            <li>Melko pilvistä (3)</li>
+            <li>Pilvistä (4)</li>
+        </ul>
+        <p><a href="https://www.ilmatieteenlaitos.fi/pilvisyys" target="_blank">Lisätietoja pilvisyydestä</a></p>
+        <br>
+        <p><strong>Sateen voimakkuus:</strong></p>
+        <ul>
+            <li>Ei sadetta/poutaa (0)</li>
+            <li>Vähäistä sadetta (1)</li>
+            <li>Sadetta (2)</li>
+            <li>Runsasta sadetta (3)</li>
+        </ul>
+        <p><a href="https://www.ilmatieteenlaitos.fi/sade" target="_blank">Lisätietoja sateesta</a></p>
+        <br>
+        <p><strong>Sateen olomuoto:</strong></p>
+        <ul>
+            <li>Pouta (0)</li>
+            <li>Tihkua (1)</li>
+            <li>Vettä (2)</li>
+            <li>Räntää (3)</li>
+            <li>Lumijyväset (4)</li>
+            <li>Lunta (5)</li>
+            <li>Rakeita (6)</li>
+        </ul>
+        <p><a href="https://www.ilmatieteenlaitos.fi/sateen-olomuodot" target="_blank">Lisätietoja olomuodosta</a></p>
+    </div>
+    <div class="container">
         <h2>Pikahaku</h2>
         <p>Hae havainto- ja ennustedataa tietylle päivälle.</p>
         <form method="POST" action="{{ url_for('find_data') }}">
@@ -77,7 +113,7 @@
                             <th>Postinumero</th>
                             <th>Lämpötila (°C)</th>
                             <th>Pilvisyys</th>
-                            <th>Sateen määrä</th>
+                            <th>Sateen voimakkuus</th>
                             <th>Sateen tyyppi</th>
                             <th>Havainnon aika</th>
                         </tr>
@@ -132,7 +168,7 @@
                                 <td>{{ observation_stats.cloudiness.max | default('-') }}</td>
                             </tr>
                             <tr>
-                                <td>Sateen määrä</td>
+                                <td>Sateen voimakkuus</td>
                                 <td>-</td>
                                 <td>{{ observation_stats.precipitation_amount.mode | default('-') }}</td>
                                 <td>{{ observation_stats.precipitation_amount.min | default('-') }}</td>
@@ -170,7 +206,7 @@
                             <th>Postinumero</th>
                             <th>Lämpötila (°C)</th>
                             <th>Pilvisyys</th>
-                            <th>Sateen määrä</th>
+                            <th>Sateen voimakkuus</th>
                             <th>Sateen tyyppi</th>
                             <th>Ennusteen aika</th>
                         </tr>
@@ -225,7 +261,7 @@
                                 <td>{{ forecast_stats.cloudiness.max | default('-') }}</td>
                             </tr>
                             <tr>
-                                <td>Sateen määrä</td>
+                                <td>Sateen voimakkuus</td>
                                 <td>-</td>
                                 <td>{{ forecast_stats.precipitation_amount.mode | default('-') }}</td>
                                 <td>{{ forecast_stats.precipitation_amount.min | default('-') }}</td>
@@ -246,6 +282,74 @@
     {% else %}
         <div class="container">
             <p>Ei ennusteita valitulla aikavälillä.</p>
+        </div>
+    {% endif %}
+    {% if observation_stats and forecast_stats %}
+        <div class="sheet-container">
+            <h2>Ennusteen osuvuus</h2>
+            <button id="toggleAccuracyTable" class="button button-blue">Näytä osuvuus</button>
+            <div id="accuracyTable" style="display: none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parametri</th>
+                            <th>Havainto</th>
+                            <th>Ennuste</th>
+                            <th>Osuvuus (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lämpötila (°C)</td>
+                            <td>{{ observation_stats.temperature.mean | default('-') }}</td>
+                            <td>{{ forecast_stats.temperature.mean | default('-') }}</td>
+                            <td>
+                                {% if observation_stats.temperature.mean != 0 %}
+                                    {{ ((1 - (observation_stats.temperature.mean - forecast_stats.temperature.mean) | abs / observation_stats.temperature.mean) * 100) | default('-') }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Pilvisyys</td>
+                            <td>{{ observation_stats.cloudiness.mode | default('-') }}</td>
+                            <td>{{ forecast_stats.cloudiness.mode | default('-') }}</td>
+                            <td>
+                                {% if observation_stats.cloudiness.mode == forecast_stats.cloudiness.mode %}
+                                    100
+                                {% else %}
+                                    {{ (100 - (observation_stats.cloudiness.mode - forecast_stats.cloudiness.mode) | abs * 25) | default('-') }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sateen voimakkuus</td>
+                            <td>{{ observation_stats.precipitation_amount.mode | default('-') }}</td>
+                            <td>{{ forecast_stats.precipitation_amount.mode | default('-') }}</td>
+                            <td>
+                                {% if observation_stats.precipitation_amount.mode == forecast_stats.precipitation_amount.mode %}
+                                    100
+                                {% else %}
+                                    {{ (100 - (observation_stats.precipitation_amount.mode - forecast_stats.precipitation_amount.mode) | abs * 33.33) | default('-') }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sateen tyyppi</td>
+                            <td>{{ observation_stats.precipitation_type.mode | default('-') }}</td>
+                            <td>{{ forecast_stats.precipitation_type.mode | default('-') }}</td>
+                            <td>
+                                {% if observation_stats.precipitation_type.mode == forecast_stats.precipitation_type.mode %}
+                                    100
+                                {% else %}
+                                    {{ (100 - (observation_stats.precipitation_type.mode - forecast_stats.precipitation_type.mode) | abs * 16.67) | default('-') }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     {% endif %}
 </body>
