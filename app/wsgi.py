@@ -192,10 +192,18 @@ def find_data():
             abort(403)
 
         tier = session.get("tier")
-        start_date_str = request.form["start_date"]
-        start_time_str = request.form.get("start_time", "00:00")
-        end_date_str = request.form.get("end_date", start_date_str)
-        end_time_str = request.form.get("end_time", "23:59")
+        quick_date_str = request.form.get("quick_date")
+        if quick_date_str:
+            start_date_str = quick_date_str
+            end_date_str = quick_date_str
+            start_time_str = "00:00"
+            end_time_str = "23:59"
+        else:
+            start_date_str = request.form["start_date"]
+            start_time_str = request.form.get("start_time", "00:00")
+            end_date_str = request.form.get("end_date", start_date_str)
+            end_time_str = request.form.get("end_time", "23:59")
+        
         postal_code = request.form.get("postal_code")
 
         # Aseta oletusarvot, jos kentät ovat tyhjiä
@@ -218,14 +226,22 @@ def find_data():
             return redirect(url_for("user.find_data"))
 
         observations = queries.get_observations(tier, start_time, end_time, postal_code)
+        forecasts = queries.get_forecasts(tier, start_time, end_time, postal_code)
+
         if len(observations) > 1:
-            stats = calculate_statistics(observations)
+            observation_stats = calculate_statistics(observations)
         else:
-            stats = None
-        return render_template("find_data.html", observations=observations, stats=stats)
+            observation_stats = None
+
+        if len(forecasts) > 1:
+            forecast_stats = calculate_statistics(forecasts)
+        else:
+            forecast_stats = None
+
+        return render_template("find_data.html", observations=observations, observation_stats=observation_stats, forecasts=forecasts, forecast_stats=forecast_stats)
 
     session["csrf_token"] = secrets.token_hex(16)
-    return render_template("find_data.html", observations=[], stats={})
+    return render_template("find_data.html", observations=[], observation_stats=None, forecasts=[], forecast_stats=None)
 
 @app.route("/search_observations", methods=["GET"])
 def search_observations():

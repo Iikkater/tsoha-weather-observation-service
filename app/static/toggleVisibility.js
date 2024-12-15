@@ -8,9 +8,27 @@ $(document).ready(function() {
         }
     });
 
-    $("#toggleStats").click(function() {
-        $("#statisticsTable").toggle();
-        if ($("#statisticsTable").is(":visible")) {
+    $("#toggleObservationStats").click(function() {
+        $("#observationStatisticsTable").toggle();
+        if ($("#observationStatisticsTable").is(":visible")) {
+            $(this).text("Piilota tilastot");
+        } else {
+            $(this).text("Näytä tilastot");
+        }
+    });
+
+    $("#toggleForecastTable").click(function() {
+        $("#forecastsTable").toggle();
+        if ($("#forecastsTable").is(":visible")) {
+            $(this).text("Piilota ennusteet");
+        } else {
+            $(this).text("Näytä ennusteet");
+        }
+    });
+
+    $("#toggleForecastStats").click(function() {
+        $("#forecastStatisticsTable").toggle();
+        if ($("#forecastStatisticsTable").is(":visible")) {
             $(this).text("Piilota tilastot");
         } else {
             $(this).text("Näytä tilastot");

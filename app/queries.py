@@ -154,6 +154,28 @@ class Queries:
                 observation.pop('id', None)
         return observations
     
+    def get_forecasts(self, tier, start_time, end_time, postal_code=None):
+        sql = """
+        SELECT f.*, pa.postal_code, uc.username FROM forecasts f
+        JOIN postal_areas pa ON f.postal_area_id = pa.id
+        JOIN user_credentials uc ON f.user_id = uc.id
+        WHERE f.forecast_time BETWEEN :start_time AND :end_time
+        """
+        if postal_code:
+            sql += " AND pa.postal_code = :postal_code"
+        sql += " LIMIT 100"
+        result = self.db.conn.session.execute(text(sql), {
+            'start_time': start_time,
+            'end_time': end_time,
+            'postal_code': postal_code
+        }).fetchall()
+        
+        forecasts = [dict(row._mapping) for row in result]
+        if tier != 'admin':
+            for forecast in forecasts:
+                forecast.pop('id', None)
+        return forecasts
+    
     def search_observations(self, query):
         sql = "SELECT id FROM observations WHERE id::text ILIKE :query"
         result = self.db.conn.session.execute(text(sql), {'query': f"{query}%"}).fetchall()

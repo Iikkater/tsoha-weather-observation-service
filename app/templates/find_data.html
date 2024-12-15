@@ -12,7 +12,7 @@
 </head>
 <body>
     <a href="{{ url_for('user') }}" class="button button-blue">Takaisin kotisivulle</a>
-    <h1>Hae havaintoja</h1>
+    <h1>Hae havainto ja ennustedataa</h1>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul>
@@ -22,24 +22,36 @@
             </ul>
         {% endif %}
     {% endwith %}
+    <h2>Pikahaku</h2>
+    <p>Hae havainto- ja ennustedataa tietylle päivälle.</p>
+    <form method="POST" action="{{ url_for('find_data') }}">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        <label for="quick_date">Päivämäärä:</label>
+        <input type="text" name="quick_date" id="quick_date" placeholder="dd-mm-yyyy" required>
+        <br><br>
+        <button type="submit" class="button button-green">Hae dataa</button>
+    </form>
+
+    <h2>Tarkennettu haku</h2>
+    <p>Hae havainto- ja ennustedataa tarkennetuilla ehdoilla. Ainoastaan alkupäivämäärä-kenttä on pakollinen tässä hakutoiminnossa. Muilla kentillä voit tarkentaa tuloksia.</p>
     <form method="POST" action="{{ url_for('find_data') }}">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         <label for="start_date">Alkupäivämäärä:</label>
         <input type="text" name="start_date" id="start_date" placeholder="dd-mm-yyyy" required>
         <br>
         <label for="start_time">Alkuaika:</label>
-        <input type="text" name="start_time" id="start_time" placeholder="hh:mm">
+        <input type="time" name="start_time" id="start_time" placeholder="hh:mm">
         <br>
         <label for="end_date">Loppupäivämäärä:</label>
         <input type="text" name="end_date" id="end_date" placeholder="dd-mm-yyyy">
         <br>
         <label for="end_time">Loppuaika:</label>
-        <input type="text" name="end_time" id="end_time" placeholder="hh:mm">
+        <input type="time" name="end_time" id="end_time" placeholder="hh:mm">
         <br>
         <label for="postal_code">Postinumero:</label>
         <input type="text" name="postal_code" id="postal_code" placeholder="Postinumero">
         <br><br>
-        <button type="submit" class="button button-green">Hae havaintoja</button>
+        <button type="submit" class="button button-green">Hae dataa</button>
     </form>
     {% if observations %}
         <h2>Havainnot</h2>
@@ -78,10 +90,10 @@
                 </tbody>
             </table>
         </div>
-        {% if stats %}
-            <h2>Tilastot</h2>
-            <button id="toggleStats" class="button button-blue">Piilota tilastot</button>
-            <div id="statisticsTable">
+        {% if observation_stats %}
+            <h2>Havaintojen tilastot</h2>
+            <button id="toggleObservationStats" class="button button-blue">Piilota havaintotilastot</button>
+            <div id="observationStatisticsTable">
                 <table>
                     <thead>
                         <tr>
@@ -95,31 +107,31 @@
                     <tbody>
                         <tr>
                             <td>Lämpötila (°C)</td>
-                            <td>{{ stats.temperature.mean | default('-') }}</td>
+                            <td>{{ observation_stats.temperature.mean | default('-') }}</td>
                             <td>-</td>
-                            <td>{{ stats.temperature.min | default('-') }}</td>
-                            <td>{{ stats.temperature.max | default('-') }}</td>
+                            <td>{{ observation_stats.temperature.min | default('-') }}</td>
+                            <td>{{ observation_stats.temperature.max | default('-') }}</td>
                         </tr>
                         <tr>
                             <td>Pilvisyys</td>
                             <td>-</td>
-                            <td>{{ stats.cloudiness.mode | default('-') }}</td>
-                            <td>{{ stats.cloudiness.min | default('-') }}</td>
-                            <td>{{ stats.cloudiness.max | default('-') }}</td>
+                            <td>{{ observation_stats.cloudiness.mode | default('-') }}</td>
+                            <td>{{ observation_stats.cloudiness.min | default('-') }}</td>
+                            <td>{{ observation_stats.cloudiness.max | default('-') }}</td>
                         </tr>
                         <tr>
                             <td>Sateen määrä</td>
                             <td>-</td>
-                            <td>{{ stats.precipitation_amount.mode | default('-') }}</td>
-                            <td>{{ stats.precipitation_amount.min | default('-') }}</td>
-                            <td>{{ stats.precipitation_amount.max | default('-') }}</td>
+                            <td>{{ observation_stats.precipitation_amount.mode | default('-') }}</td>
+                            <td>{{ observation_stats.precipitation_amount.min | default('-') }}</td>
+                            <td>{{ observation_stats.precipitation_amount.max | default('-') }}</td>
                         </tr>
                         <tr>
                             <td>Sateen tyyppi</td>
                             <td>-</td>
-                            <td>{{ stats.precipitation_type.mode | default('-') }}</td>
-                            <td>{{ stats.precipitation_type.min | default('-') }}</td>
-                            <td>{{ stats.precipitation_type.max | default('-') }}</td>
+                            <td>{{ observation_stats.precipitation_type.mode | default('-') }}</td>
+                            <td>{{ observation_stats.precipitation_type.min | default('-') }}</td>
+                            <td>{{ observation_stats.precipitation_type.max | default('-') }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -127,6 +139,93 @@
         {% endif %}
     {% else %}
         <p>Ei havaintoja valitulla aikavälillä.</p>
+    {% endif %}
+    {% if forecasts %}
+        <h2>Ennusteet</h2>
+        <button id="toggleForecastTable" class="button button-blue">Piilota ennusteet</button>
+        <div id="forecastsTable">
+            <table>
+                <thead>
+                    <tr>
+                        {% if session.tier == 'admin' %}
+                            <th>Ennusteen ID</th>
+                        {% endif %}
+                        <th>Käyttäjä</th>
+                        <th>Postinumero</th>
+                        <th>Lämpötila (°C)</th>
+                        <th>Pilvisyys</th>
+                        <th>Sateen määrä</th>
+                        <th>Sateen tyyppi</th>
+                        <th>Ennusteen aika</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for forecast in forecasts %}
+                        <tr>
+                            {% if session.tier == 'admin' %}
+                                <td>{{ forecast.id }}</td>
+                            {% endif %}
+                            <td>{{ forecast.username }}</td>
+                            <td>{{ forecast.postal_code }}</td>
+                            <td>{{ forecast.temperature }}</td>
+                            <td>{{ forecast.cloudiness }}</td>
+                            <td>{{ forecast.precipitation_amount }}</td>
+                            <td>{{ forecast.precipitation_type }}</td>
+                            <td>{{ forecast.forecast_time.strftime('%Y-%m-%d %H:%M') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if forecast_stats %}
+            <h2>Ennusteiden tilastot</h2>
+            <button id="toggleForecastStats" class="button button-blue">Piilota ennustetilastot</button>
+            <div id="forecastStatisticsTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parametri</th>
+                            <th>Keskiarvo</th>
+                            <th>Moodi</th>
+                            <th>Minimi</th>
+                            <th>Maksimi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lämpötila (°C)</td>
+                            <td>{{ forecast_stats.temperature.mean | default('-') }}</td>
+                            <td>-</td>
+                            <td>{{ forecast_stats.temperature.min | default('-') }}</td>
+                            <td>{{ forecast_stats.temperature.max | default('-') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Pilvisyys</td>
+                            <td>-</td>
+                            <td>{{ forecast_stats.cloudiness.mode | default('-') }}</td>
+                            <td>{{ forecast_stats.cloudiness.min | default('-') }}</td>
+                            <td>{{ forecast_stats.cloudiness.max | default('-') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Sateen määrä</td>
+                            <td>-</td>
+                            <td>{{ forecast_stats.precipitation_amount.mode | default('-') }}</td>
+                            <td>{{ forecast_stats.precipitation_amount.min | default('-') }}</td>
+                            <td>{{ forecast_stats.precipitation_amount.max | default('-') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Sateen tyyppi</td>
+                            <td>-</td>
+                            <td>{{ forecast_stats.precipitation_type.mode | default('-') }}</td>
+                            <td>{{ forecast_stats.precipitation_type.min | default('-') }}</td>
+                            <td>{{ forecast_stats.precipitation_type.max | default('-') }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    {% else %}
+        <p>Ei ennusteita valitulla aikavälillä.</p>
     {% endif %}
 </body>
 </html>
